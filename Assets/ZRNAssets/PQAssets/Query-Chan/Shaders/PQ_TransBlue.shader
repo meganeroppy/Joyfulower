@@ -1,3 +1,5 @@
+// Upgrade NOTE: replaced '_Object2World' with 'unity_ObjectToWorld'
+
 Shader "PQ_TransBlue"
 {
 	Properties 
@@ -99,7 +101,7 @@ float4 VertexOutputMaster0_1_NoInput = float4(0,0,0,0);
 float4 VertexOutputMaster0_2_NoInput = float4(0,0,0,0);
 float4 VertexOutputMaster0_3_NoInput = float4(0,0,0,0);
 
-o.simpleWorldRefl = -reflect( normalize(WorldSpaceViewDir(v.vertex)), normalize(mul((float3x3)_Object2World, SCALED_NORMAL)));
+o.simpleWorldRefl = -reflect( normalize(WorldSpaceViewDir(v.vertex)), normalize(mul((float3x3)unity_ObjectToWorld, SCALED_NORMAL)));
 
 			}
 			
