@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 /// <summary>
 /// API のパラメータ群
@@ -7,7 +8,6 @@ using System.Collections;
 namespace APIParameter 
 {
 	public class ResponseParameter{
-
 		/// <summary>
 		/// GPS座標データ
 		/// </summary>
@@ -30,14 +30,45 @@ namespace APIParameter
 		}
 
 		/// <summary>
-		/// 座標
+		/// つぶやき情報
 		/// </summary>
-		public GPS gps;
+		public struct TweetInfo
+		{
+			/// <summary>
+			/// 位置情報
+			/// </summary>
+			public GPS gps;
+
+			/// <summary>
+			/// 幸福指数
+			/// </summary>
+			public int happiness;
+		}
 
 		/// <summary>
-		/// 幸福度
+		/// ブルームポイント情報
 		/// </summary>
-		public int happiness;
+		public struct BloomPointInfo
+		{
+			/// <summary>
+			/// 位置情報
+			/// </summary>
+			public GPS gps;
 
+			/// <summary>
+			/// 幸福指数
+			/// </summary>
+			public int happiness;
+		}
+			
+		/// <summary>
+		/// つぶやきリスト
+		/// </summary>
+		public List<TweetInfo> tweetInfoList;
+
+		/// <summary>
+		/// ブルームポイントリスト
+		/// </summary>
+		public List<BloomPointInfo> bloomPointInfoList;
 	}
 }
