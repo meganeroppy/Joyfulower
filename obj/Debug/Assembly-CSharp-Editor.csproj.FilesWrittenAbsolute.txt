@@ -29,3 +29,4 @@
 /Users/MeganeRoppy/projectMediaArt/Temp/bin/Debug/Unity.CecilTools.dll
 /Users/MeganeRoppy/projectMediaArt/Temp/bin/Debug/Mono.Cecil.Pdb.dll
 /Users/MeganeRoppy/projectMediaArt/Temp/bin/Debug/Mono.Cecil.Mdb.dll
+/Users/MeganeRoppy/projectMediaArt/Temp/bin/Debug/UnityEditor.Android.Extensions.dll

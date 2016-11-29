@@ -1,34 +1,39 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
 /// <summary>
 /// API のパラメータ群
 /// </summary>
 namespace APIParameter 
 {
-	public class ResponseParameter{
+	/// <summary>
+	/// GPS座標データ
+	/// </summary>
+	public struct GPS
+	{
 		/// <summary>
-		/// GPS座標データ
+		/// 経度
 		/// </summary>
-		public struct GPS
-		{
-			/// <summary>
-			/// 経度
-			/// </summary>
-			public float longitude;
+		public float longitude;
 
-			/// <summary>
-			/// 緯度
-			/// </summary>
-			public float latitude;
+		/// <summary>
+		/// 緯度
+		/// </summary>
+		public float latitude;
 
-			/// <summary>
-			/// 高度
-			/// </summary>
-			public float altitude;
-		}
+		/// <summary>
+		/// 高度
+		/// </summary>
+		public float altitude;
+	}
 
+	/// <summary>
+	/// リクエストパラメータ
+	/// </summary>
+	public class ResponseParameter
+	{
 		/// <summary>
 		/// つぶやき情報
 		/// </summary>
@@ -43,6 +48,11 @@ namespace APIParameter
 			/// 幸福指数
 			/// </summary>
 			public int happiness;
+
+			/// <summary>
+			/// つぶやかれた時間
+			/// </summary>
+			public DateTime time;
 		}
 
 		/// <summary>
@@ -70,5 +80,21 @@ namespace APIParameter
 		/// ブルームポイントリスト
 		/// </summary>
 		public List<BloomPointInfo> bloomPointInfoList;
+	}
+
+	/// <summary>
+	/// Request parameter.
+	/// </summary>
+	public  class RequestParameter
+	{
+		/// <summary>
+		/// 自分の座標
+		/// </summary>
+		public GPS my_position;
+
+		/// <summary>
+		/// 取得する距離（メートル）
+		/// </summary>
+		public float range;
 	}
 }
