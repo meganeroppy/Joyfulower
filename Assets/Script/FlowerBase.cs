@@ -198,15 +198,17 @@ public class FlowerBase : MonoBehaviour {
 	/// </summary>
 	public void Pick()
 	{
-		Destroy( model );
-		Destroy( particle.gameObject );
+		if( model != null )
+		{
+			Die();
 
-		// エフェクト
-		// 生成エフェクト
-		GameObject g = GameObject.Instantiate(effect);
-		g.transform.SetParent( particleBase );
-		g.transform.localPosition = Vector3.forward * posY;
-		g.transform.localRotation = Quaternion.identity;
+			// エフェクト
+			// 生成エフェクト
+			GameObject g = GameObject.Instantiate(effect);
+			g.transform.SetParent( particleBase );
+			g.transform.localPosition = Vector3.forward * posY;
+			g.transform.localRotation = Quaternion.identity;
+		}
 	}
 
 }
