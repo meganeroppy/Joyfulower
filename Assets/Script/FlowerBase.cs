@@ -67,14 +67,41 @@ public class FlowerBase : MonoBehaviour {
 		fList.Add(this);
 	}
 
-	public static FlowerBase GetNearestFloer( Vector3 myPos, float pickRange=float.MaxValue)
+	void Update()
+	{
+		UpdateLifeTimer();
+	}
+
+	/// <summary>
+	/// タイマー更新
+	/// </summary>
+	void UpdateLifeTimer()
+	{
+		if( timer <= 0 )
+		{
+			return;
+		}
+
+		timer -= Time.deltaTime;
+		if( timer <= 0 )
+		{
+			Die();
+		}
+	}
+
+	/// <summary>
+	/// 最寄りのブルームポイントを返す
+	/// </summary>
+	/// <param name="myPos">自分の位置</param>
+	/// <param name="pickRange">自分の位置基準の検索範囲 指定しなければ範囲無限</param>
+	public static FlowerBase GetNearestFloer( Vector3 myPos, float range=float.MaxValue)
 	{
 		List<FlowerBase> inRange = new List<FlowerBase>();
 
 		foreach( FlowerBase fb in FlowerBase.fList )
 		{
 			float distance = Mathf.Abs( (fb.transform.position - myPos).magnitude );
-			if( distance <= pickRange )
+			if( distance <= range )
 			{
 				inRange.Add( fb );
 			}
@@ -138,7 +165,7 @@ public class FlowerBase : MonoBehaviour {
 		g.transform.localPosition = Vector3.forward * posY;
 		g.transform.localRotation = Quaternion.identity;
 
-		StartCoroutine( WaitAndDie() );
+		timer = lifeTime;
 	}
 
 	/// <summary>
@@ -149,32 +176,26 @@ public class FlowerBase : MonoBehaviour {
 		FlowerType seed = (FlowerType)Random.Range(0, (int)FlowerType.Count);
 		Bloom(seed);
 	}
+		
 	/// <summary>
-	/// 一定時間後に花を削除
+	/// 花のモデルとパーティクルを削除
 	/// </summary>
-	/// <returns>The and die.</returns>
-	IEnumerator WaitAndDie()
+	private void Die()
 	{
-		while(true)
+		if( model != null )
 		{
-			timer++;
-			if( model == null )
-			{
-				yield break;
-			}
-			else if( timer >= lifeTime )
-			{
-				break;
-			}
-			yield return new WaitForSeconds(1);
+			Destroy( model );
 		}
 
-		Destroy( model );
-		Destroy( particle.gameObject );
-
-		timer = 0;
+		if( particle != null )
+		{
+			Destroy( particle.gameObject );
+		}
 	}
 
+	/// <summary>
+	/// 花を摘む
+	/// </summary>
 	public void Pick()
 	{
 		Destroy( model );
