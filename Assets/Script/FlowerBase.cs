@@ -67,6 +67,42 @@ public class FlowerBase : MonoBehaviour {
 		fList.Add(this);
 	}
 
+	public static FlowerBase GetNearestFloer( Vector3 myPos, float pickRange=float.MaxValue)
+	{
+		List<FlowerBase> inRange = new List<FlowerBase>();
+
+		foreach( FlowerBase fb in FlowerBase.fList )
+		{
+			float distance = Mathf.Abs( (fb.transform.position - myPos).magnitude );
+			if( distance <= pickRange )
+			{
+				inRange.Add( fb );
+			}
+		}
+
+		if( inRange.Count == 0 )
+		{
+			Debug.Log("範囲内に花なし");
+			return null;
+		}
+
+		int nearestIdx = 0;
+		float num = float.MaxValue;
+
+		for( int i = 0 ; i < inRange.Count ; i++ )
+		{
+			FlowerBase fb = inRange[i];
+			float distance = Mathf.Abs( (fb.transform.position - myPos).magnitude );
+			if( distance < num )
+			{
+				num = distance;
+				nearestIdx = i;
+			}
+		}
+
+		return inRange[ nearestIdx ];
+	}
+
 	/// <summary>
 	/// 花をセット
 	/// </summary>

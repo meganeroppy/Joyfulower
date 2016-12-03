@@ -14,11 +14,6 @@ public class FlowerBaseGroup : MonoBehaviour {
 	float checkInterval = 15f;
 	float timer = 0;
 
-	// Use this for initialization
-	void Start () {
-	//	SetAllFlower();
-	}
-	
 	// Update is called once per frame
 	void Update () {
 		if( UpdateCheckTimer() )
@@ -26,7 +21,7 @@ public class FlowerBaseGroup : MonoBehaviour {
 			CheckData();
 		}
 
-		GetInput();
+	//	GetInput();
 	}
 
 	/// <summary>
