@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 /// <summary>
 /// 花が咲くポイント
@@ -21,12 +22,13 @@ public class FlowerBase : MonoBehaviour {
 	/// <summary>
 	/// 花のモデルリスト
 	/// </summary>
-	public GameObject[] model;
-
+	public GameObject[] modelPrefab;
+	private GameObject model;
 	/// <summary>
 	/// パーティクル
 	/// </summary>
-	public ParticleSystem particle;
+	public ParticleSystem particlePrefab;
+	private ParticleSystem particle;
 
 	/// <summary>
 	/// パーティクルベース
@@ -44,27 +46,110 @@ public class FlowerBase : MonoBehaviour {
 	private const float posY = 1f;
 
 	/// <summary>
+	/// 生成時のエフェクト
+	/// </summary>
+	public GameObject effect;
+
+	/// <summary>
+	/// 花の寿命
+	/// </summary>
+	public float lifeTime = 15f;
+	private float timer = 0;
+
+	public static List<FlowerBase> fList;
+
+	void Start()
+	{
+		if( fList == null )
+		{
+			fList = new List<FlowerBase>();
+		}
+		fList.Add(this);
+	}
+
+	/// <summary>
 	/// 花をセット
 	/// </summary>
 	/// <param name="type">Type.</param>
-	public void SetFlower(FlowerType type)
+	public void Bloom(FlowerType type)
 	{		
+		if( model != null )
+		{
+			Debug.Log("生成済み");
+			return;
+		}
+
 		// 花モデルをセット
 		int idx = (int)type;
 		if(idx >= (int)FlowerType.Count){
 			Debug.LogError("花タイプが無効");
 			return;
 		}
-		GameObject f = GameObject.Instantiate<GameObject>(model[idx]);
-		f.transform.SetParent(modelBase);
-		f.transform.localPosition = Vector3.zero;
-		f.transform.localScale = Vector3.one;
+		model = GameObject.Instantiate<GameObject>(modelPrefab[idx]);
+		model.transform.SetParent(modelBase);
+		model.transform.localPosition = Vector3.zero;
+		model.transform.localScale = Vector3.one;
 
 		// パーティクルをセット
-		ParticleSystem s = GameObject.Instantiate<ParticleSystem>(particle);
-		s.transform.SetParent( particleBase );
-		s.transform.localPosition = Vector3.forward * posY;
-		s.transform.localRotation = Quaternion.identity;
+		particle = GameObject.Instantiate<ParticleSystem>(particlePrefab);
+		particle.transform.SetParent( particleBase );
+		particle.transform.localPosition = Vector3.forward * posY;
+		particle.transform.localRotation = Quaternion.identity;
+
+		// 生成エフェクト
+		GameObject g = GameObject.Instantiate(effect);
+		g.transform.SetParent( particleBase );
+		g.transform.localPosition = Vector3.forward * posY;
+		g.transform.localRotation = Quaternion.identity;
+
+		StartCoroutine( WaitAndDie() );
+	}
+
+	/// <summary>
+	/// 花をセット 種類はランダム
+	/// </summary>
+	public void Bloom()
+	{
+		FlowerType seed = (FlowerType)Random.Range(0, (int)FlowerType.Count);
+		Bloom(seed);
+	}
+	/// <summary>
+	/// 一定時間後に花を削除
+	/// </summary>
+	/// <returns>The and die.</returns>
+	IEnumerator WaitAndDie()
+	{
+		while(true)
+		{
+			timer++;
+			if( model == null )
+			{
+				yield break;
+			}
+			else if( timer >= lifeTime )
+			{
+				break;
+			}
+			yield return new WaitForSeconds(1);
+		}
+
+		Destroy( model );
+		Destroy( particle.gameObject );
+
+		timer = 0;
+	}
+
+	public void Pick()
+	{
+		Destroy( model );
+		Destroy( particle.gameObject );
+
+		// エフェクト
+		// 生成エフェクト
+		GameObject g = GameObject.Instantiate(effect);
+		g.transform.SetParent( particleBase );
+		g.transform.localPosition = Vector3.forward * posY;
+		g.transform.localRotation = Quaternion.identity;
 	}
 
 }
