@@ -1,0 +1,20 @@
+newmtl green
+Ka 0 0.0653 0
+Kd 0 0.2 0
+Ks 0 0.2776 0
+Tf 0 0 0
+Ns 60
+Ni 1
+sharpness 0
+d 1
+
+newmtl yellow
+Ka 0.5796 0.3872 0.0024
+Kd 1 0.6667 0
+Ks 1 0.8717 0.102
+Tf 0 0 0
+Ns 65.89
+Ni 1
+sharpness 0
+d 1
+

@@ -1,0 +1,163 @@
+fileFormatVersion: 2
+guid: 4fb4ee641082d4cfdbd1ff281c40744c
+timeCreated: 1481551661
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: base
+    100002: leaves1
+    100004: leaves1b
+    100006: leaves2
+    100008: leaves2b
+    100010: leaves3
+    100012: leaves3b
+    100014: middle1
+    100016: middle2
+    100018: peduncle
+    100020: petals1
+    100022: petals2a
+    100024: petals2b
+    100026: petals2c
+    100028: petals3
+    100030: shute1
+    100032: shute2
+    100034: stem
+    100036: //RootNode
+    400000: base
+    400002: leaves1
+    400004: leaves1b
+    400006: leaves2
+    400008: leaves2b
+    400010: leaves3
+    400012: leaves3b
+    400014: middle1
+    400016: middle2
+    400018: peduncle
+    400020: petals1
+    400022: petals2a
+    400024: petals2b
+    400026: petals2c
+    400028: petals3
+    400030: shute1
+    400032: shute2
+    400034: stem
+    400036: //RootNode
+    2300000: base
+    2300002: leaves1
+    2300004: leaves1b
+    2300006: leaves2
+    2300008: leaves2b
+    2300010: leaves3
+    2300012: leaves3b
+    2300014: middle1
+    2300016: middle2
+    2300018: peduncle
+    2300020: petals1
+    2300022: petals2a
+    2300024: petals2b
+    2300026: petals2c
+    2300028: petals3
+    2300030: shute1
+    2300032: shute2
+    2300034: stem
+    3300000: base
+    3300002: leaves1
+    3300004: leaves1b
+    3300006: leaves2
+    3300008: leaves2b
+    3300010: leaves3
+    3300012: leaves3b
+    3300014: middle1
+    3300016: middle2
+    3300018: peduncle
+    3300020: petals1
+    3300022: petals2a
+    3300024: petals2b
+    3300026: petals2c
+    3300028: petals3
+    3300030: shute1
+    3300032: shute2
+    3300034: stem
+    4300000: base
+    4300002: leaves1
+    4300004: leaves1b
+    4300006: leaves2
+    4300008: leaves2b
+    4300010: leaves3
+    4300012: leaves3b
+    4300014: middle1
+    4300016: middle2
+    4300018: peduncle
+    4300020: petals1
+    4300022: petals2a
+    4300024: petals2b
+    4300026: petals2c
+    4300028: petals3
+    4300030: shute1
+    4300032: shute2
+    4300034: stem
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

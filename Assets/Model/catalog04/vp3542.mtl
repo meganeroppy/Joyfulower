@@ -1,0 +1,40 @@
+newmtl dkgreen
+Ka 0 0.0122 0
+Kd 0.0058 0.0245 0
+Ks 0 0.049 0
+Tf 0 0 0
+Ns 60
+Ni 1
+sharpness 0
+d 1
+
+newmtl green
+Ka 0 0.0653 0
+Kd 0 0.2 0
+Ks 0 0.2776 0
+Tf 0 0 0
+Ns 60
+Ni 1
+sharpness 0
+d 1
+
+newmtl pale_green
+Ka 0.0444 0.0898 0.0447
+Kd 0.0712 0.3796 0.049
+Ks 0.1603 0.4694 0.1322
+Tf 0 0 0
+Ns 91.47
+Ni 1
+sharpness 0
+d 1
+
+newmtl pale_pink
+Ka 0.0898 0.0444 0.0444
+Kd 0.6531 0.2053 0.416
+Ks 0.5714 0.3615 0.463
+Tf 0 0 0
+Ns 91.47
+Ni 1
+sharpness 0
+d 1
+

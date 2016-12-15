@@ -1,0 +1,143 @@
+fileFormatVersion: 2
+guid: e961aa52f62234859930f33ee917fd98
+timeCreated: 1481551999
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: blossoms
+    100002: buds1
+    100004: buds3
+    100006: ends1
+    100008: ends2
+    100010: flowers
+    100012: leaves1
+    100014: leaves2
+    100016: leaves3
+    100018: leaves4
+    100020: stems
+    100022: stems2
+    100024: stems3
+    100026: stems4
+    100028: //RootNode
+    400000: blossoms
+    400002: buds1
+    400004: buds3
+    400006: ends1
+    400008: ends2
+    400010: flowers
+    400012: leaves1
+    400014: leaves2
+    400016: leaves3
+    400018: leaves4
+    400020: stems
+    400022: stems2
+    400024: stems3
+    400026: stems4
+    400028: //RootNode
+    2300000: blossoms
+    2300002: buds1
+    2300004: buds3
+    2300006: ends1
+    2300008: ends2
+    2300010: flowers
+    2300012: leaves1
+    2300014: leaves2
+    2300016: leaves3
+    2300018: leaves4
+    2300020: stems
+    2300022: stems2
+    2300024: stems3
+    2300026: stems4
+    3300000: blossoms
+    3300002: buds1
+    3300004: buds3
+    3300006: ends1
+    3300008: ends2
+    3300010: flowers
+    3300012: leaves1
+    3300014: leaves2
+    3300016: leaves3
+    3300018: leaves4
+    3300020: stems
+    3300022: stems2
+    3300024: stems3
+    3300026: stems4
+    4300000: blossoms
+    4300002: buds1
+    4300004: buds3
+    4300006: ends1
+    4300008: ends2
+    4300010: flowers
+    4300012: leaves1
+    4300014: leaves2
+    4300016: leaves3
+    4300018: leaves4
+    4300020: stems
+    4300022: stems2
+    4300024: stems3
+    4300026: stems4
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

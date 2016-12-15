@@ -1,0 +1,40 @@
+newmtl brown
+Ka 0.049 0.0084 0
+Kd 0.1224 0.021 0
+Ks 0.2122 0.0312 0
+Tf 0 0 0
+Ns 65.89
+Ni 1
+sharpness 0
+d 1
+
+newmtl green
+Ka 0 0.0653 0
+Kd 0 0.2 0
+Ks 0 0.2776 0
+Tf 0 0 0
+Ns 60
+Ni 1
+sharpness 0
+d 1
+
+newmtl pink
+Ka 0.9469 0.0078 0.2845
+Kd 0.9878 0.1695 0.6702
+Ks 0.7429 0.2972 0.2972
+Tf 0 0 0
+Ns 106.2
+Ni 1
+sharpness 0
+d 1
+
+newmtl white
+Ka 0.4 0.4 0.4
+Kd 1 1 1
+Ks 1 1 1
+Tf 0 0 0
+Ns 60
+Ni 1
+sharpness 0
+d 1
+
