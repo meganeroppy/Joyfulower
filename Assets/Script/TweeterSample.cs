@@ -17,7 +17,7 @@ public class TweeterSample : MonoBehaviour {
 		}
 	}
 
-	void Tweet()
+	public void Tweet()
 	{
 		FlowerBase fb = FlowerBase.GetNearestFloer(transform.position);
 		if( fb != null )

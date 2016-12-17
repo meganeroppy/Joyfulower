@@ -18,7 +18,7 @@ public class FlowerPicker : MonoBehaviour {
 	/// <summary>
 	/// 範囲内の花を摘む
 	/// </summary>
-	void TryPick()
+	public void TryPick()
 	{
 		FlowerBase fb = FlowerBase.GetNearestFloer( this.transform.position, pickRange );
 		if( fb != null )
