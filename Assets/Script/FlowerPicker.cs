@@ -2,6 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 
+/// <summary>
+/// 花を摘む
+/// </summary>
 public class FlowerPicker : MonoBehaviour {
 
 	public float pickRange = 5f;

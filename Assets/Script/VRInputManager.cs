@@ -3,9 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 
 /// <summary>
-/// プレイヤーの入力を検出
+/// Viveのコントローラからの入力を検出
 /// </summary>
-public class PlayerInputManager : MonoBehaviour {
+public class VRInputManager : MonoBehaviour {
 
 	enum HandType{
 		Left,
