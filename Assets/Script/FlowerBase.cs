@@ -200,6 +200,10 @@ public class FlowerBase : MonoBehaviour {
 	{
 		if( model != null )
 		{
+			// UIに反映
+			GameDirector.instance.CountObj(model.gameObject.name);
+
+			// モデルを削除
 			Die();
 
 			// エフェクト
@@ -208,6 +212,7 @@ public class FlowerBase : MonoBehaviour {
 			g.transform.SetParent( particleBase );
 			g.transform.localPosition = Vector3.forward * posY;
 			g.transform.localRotation = Quaternion.identity;
+
 		}
 	}
 
