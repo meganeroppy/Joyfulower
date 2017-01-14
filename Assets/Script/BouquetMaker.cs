@@ -13,11 +13,6 @@ public class BouquetMaker : MonoBehaviour
 	public static BouquetMaker instance;
 
 	/// <summary>
-	/// 摑み候補
-	/// </summary>
-	private BouquetPart holdTarget;
-
-	/// <summary>
 	/// 掴む手
 	/// </summary>
 	[SerializeField]
@@ -41,7 +36,7 @@ public class BouquetMaker : MonoBehaviour
 	List<GameObject> parts;
 
 	/// <summary>
-	/// 現在掴んでいる花パーツ
+	/// 現在掴んでいるまたは掴み候補のパーツ
 	/// </summary>
 	private BouquetPart heldPart;
 
@@ -110,14 +105,14 @@ public class BouquetMaker : MonoBehaviour
 		//　摑み候補があれば登録
 		if( tempHoldTarget != null )
 		{			
-			holdTarget  = tempHoldTarget;
+			heldPart  = tempHoldTarget;
 
 			// 摑み候補を光らせる
-			holdTarget.Sparcle(true);
+			heldPart.Sparcle(true);
 		}
 		else
 		{
-			holdTarget = null;
+			heldPart = null;
 		}
 	}
 
@@ -132,20 +127,20 @@ public class BouquetMaker : MonoBehaviour
 			return;
 		}
 
-		if( holdTarget == null )
+		if( heldPart == null )
 		{
 			Debug.Log("摑み候補なし");
 			return;
 		}
 
-		if( holdTarget.transform.parent.Equals( hand ) )
+		if( heldPart.transform.parent != null && heldPart.transform.parent.Equals( hand ) )
 		{
 			Debug.Log("既に掴んでいるものがある");
 			return;	
 		}
 
 		// 右手の子要素にセット
-		holdTarget.transform.SetParent( hand );
+		heldPart.transform.SetParent( hand );
 	}
 
 	/// <summary>
@@ -159,13 +154,13 @@ public class BouquetMaker : MonoBehaviour
 			return;
 		}
 
-		if( holdTarget == null )
+		if( heldPart == null )
 		{
 			Debug.Log("摑み候補なし");
 			return;
 		}
 
-		if( !holdTarget.transform.parent.Equals( hand ) )
+		if( heldPart.transform.parent == null )
 		{
 			Debug.Log("掴んでいるものなし");
 			return;	
@@ -196,6 +191,7 @@ public class BouquetMaker : MonoBehaviour
 			var b = Instantiate( bouquetPartPrefab ).GetComponent<BouquetPart>();
 			var type = Random.Range(0, (int)BouquetPart.FlowerType.Count);
 			b.Create( (BouquetPart.FlowerType)type );
+			b.transform.position = transform.TransformPoint ( Vector3.forward * 2f );
 		}
 	}
 
@@ -212,6 +208,7 @@ public class BouquetMaker : MonoBehaviour
 			var b = BouquetPart.bList[i];
 			Destroy(b.gameObject);
 		}
+		BouquetPart.bList.Clear ();
 	}
 
 	/// <summary>
