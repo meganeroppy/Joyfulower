@@ -96,5 +96,10 @@ namespace APIParameter
 		/// 取得する距離（メートル）
 		/// </summary>
 		public float range;
+
+		/// <summary>
+		/// URL
+		/// </summary>
+		public string url = "http://www.triaws.com/~joyfulower/keiji/prot/API001.php";
 	}
 }
