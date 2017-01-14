@@ -10,11 +10,6 @@ public class BouquetPart : MonoBehaviour {
 	public static List<BouquetPart> bList;
 
 	/// <summary>
-	/// つかめる範囲
-	/// </summary>
-	public float range;
-
-	/// <summary>
 	/// 花の種類（仮）
 	/// </summary>
 	public enum FlowerType{
