@@ -84,6 +84,8 @@ public class BouquetPart : MonoBehaviour {
 		// 花束にセット
 		transform.SetParent( parent );
 
+		Debug.Log (transform.name + "を花束にセット");
+
 		// エフェクト
 	}
 
