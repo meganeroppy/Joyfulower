@@ -106,8 +106,8 @@ public class PlayerInputManager : MonoBehaviour {
 	/// <summary>
 	/// コントローラのトリガーが引かれた
 	/// </summary>
-	/// <param name="type">Type.</param>
-	/// <param name="half">If set to <c>true</c> half.</param>
+	/// <param name="type">右手または左手</param>
+	/// <param name="half">半押しか？</param>
 	private void OnPressTrigger( HandType type, bool half )
 	{
 		if( half ){
