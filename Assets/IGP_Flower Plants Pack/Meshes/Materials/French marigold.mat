@@ -1,0 +1,70 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: French marigold
+  m_Shader: {fileID: 4800000, guid: 8a0fc0f628494154c8f6137304d3f3ed, type: 3}
+  m_ShaderKeywords: []
+  m_SavedProperties:
+    serializedVersion: 2
+    m_TexEnvs:
+      data:
+        first:
+          name: _MainTex
+        second:
+          m_Texture: {fileID: 2800000, guid: 95eb9e89a8a66574799ed0ace1cf91b2, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _BumpMap
+        second:
+          m_Texture: {fileID: 2800000, guid: 08790bff968a2384389aea07a1cdb202, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+    m_Floats:
+      data:
+        first:
+          name: _Cutoff
+        second: .5
+      data:
+        first:
+          name: _Shininess
+        second: .704294801
+      data:
+        first:
+          name: _SquashAmount
+        second: 1
+      data:
+        first:
+          name: _BaseLight
+        second: .835820854
+      data:
+        first:
+          name: _AO
+        second: 1.20597017
+      data:
+        first:
+          name: _Occlusion
+        second: 3.28358197
+    m_Colors:
+      data:
+        first:
+          name: _Color
+        second: {r: 1, g: .985074639, b: .985074639, a: 1}
+      data:
+        first:
+          name: _SpecColor
+        second: {r: .305970132, g: .230443656, b: .207785681, a: 0}
+      data:
+        first:
+          name: _Emission
+        second: {r: .171641767, g: .171641767, b: .171641767, a: 0}
+      data:
+        first:
+          name: _Scale
+        second: {r: 1, g: 1, b: 1, a: 1}

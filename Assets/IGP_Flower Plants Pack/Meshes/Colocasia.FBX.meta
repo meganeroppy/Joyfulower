@@ -1,0 +1,122 @@
+fileFormatVersion: 2
+guid: 2e74a8ad8504db4459a0d1f558e691ac
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: Colocasia010
+    100004: Colocasia011
+    100006: Colocasia012
+    100008: Colocasia013
+    100010: Colocasia014
+    100012: Colocasia015
+    100014: Colocasia2
+    100016: Colocasia016
+    100018: Colocasia017
+    100020: Colocasia018
+    400000: //RootNode
+    400002: Colocasia010
+    400004: Colocasia011
+    400006: Colocasia012
+    400008: Colocasia013
+    400010: Colocasia014
+    400012: Colocasia015
+    400014: Colocasia2
+    400016: Colocasia016
+    400018: Colocasia017
+    400020: Colocasia018
+    2300000: Colocasia010
+    2300002: Colocasia011
+    2300004: Colocasia012
+    2300006: Colocasia013
+    2300008: Colocasia014
+    2300010: Colocasia015
+    2300012: Colocasia2
+    2300014: Colocasia016
+    2300016: Colocasia017
+    2300018: Colocasia018
+    3300000: Colocasia010
+    3300002: Colocasia011
+    3300004: Colocasia012
+    3300006: Colocasia013
+    3300008: Colocasia014
+    3300010: Colocasia015
+    3300012: Colocasia2
+    3300014: Colocasia016
+    3300016: Colocasia017
+    3300018: Colocasia018
+    4300000: Colocasia2
+    4300002: Colocasia010
+    4300004: Colocasia011
+    4300006: Colocasia012
+    4300008: Colocasia013
+    4300010: Colocasia014
+    4300012: Colocasia015
+    4300014: Colocasia016
+    4300016: Colocasia017
+    4300018: Colocasia018
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 0.01
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
