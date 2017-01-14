@@ -24,6 +24,12 @@ public class BouquetMaker : MonoBehaviour
 	private Transform hand;
 
 	/// <summary>
+	/// 花束パーツプレハブ
+	/// </summary>
+	[SerializeField]
+	BouquetPart bouquetPartPrefab;
+
+	/// <summary>
 	/// 花束ベース
 	/// </summary>
 	[SerializeField]
@@ -51,8 +57,13 @@ public class BouquetMaker : MonoBehaviour
 	}
 	
 	// Update is called once per frame
-	void Update () {
-	
+	void Update () 
+	{
+		// 花束作成シーンのみ摑みターゲットの更新処理
+		if( SceneManager.instance.sceneType.Equals( SceneManager.SceneType.Bouquet ) )
+		{
+			UpdateHoldTarget();
+		}
 	}
 
 	private void UpdateHoldTarget()
@@ -170,5 +181,44 @@ public class BouquetMaker : MonoBehaviour
 		{
 			heldPart.Release();
 		}
+	}
+
+	/// <summary>
+	/// 所持している花束パーツを並べる
+	/// </summary>
+	public void CreateBouquetParts()
+	{
+		Debug.Log("花束関連オブジェクト生成");
+
+		// TODO: 所持している花の種類分並べる
+		for( int i=0 ; i < 10 ; i++ )
+		{
+			var b = Instantiate( bouquetPartPrefab ).GetComponent<BouquetPart>();
+			var type = Random.Range(0, (int)BouquetPart.FlowerType.Count);
+			b.Create( (BouquetPart.FlowerType)type );
+		}
+	}
+
+	/// <summary>
+	/// 表示中の花束関連オブジェクトを破棄
+	/// </summary>
+	public void RemoveBouquetParts()
+	{
+		Debug.Log("花束関連オブジェクト破棄");
+
+		// 花束パーツの削除
+		for( int i=BouquetPart.bList.Count-1 ; i >= 0 ; i-- )
+		{
+			var b = BouquetPart.bList[i];
+			Destroy(b.gameObject);
+		}
+	}
+
+	/// <summary>
+	/// 花束完成
+	/// </summary>
+	public void CompleteBouquet()
+	{
+		Debug.Log("花束完成");
 	}
 }

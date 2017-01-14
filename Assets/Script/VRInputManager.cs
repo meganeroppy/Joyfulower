@@ -19,6 +19,7 @@ public class VRInputManager : MonoBehaviour {
 
 	private TweeterSample tweet;
 	private FlowerPicker picker;
+	private BouquetMaker bouquetMaker;
 
 	/// <summary>
 	/// キーボード操作用コントローラ
@@ -70,8 +71,10 @@ public class VRInputManager : MonoBehaviour {
 
 		tweet = GetComponent<TweeterSample>();
 		picker = GetComponent<FlowerPicker>();
+		bouquetMaker = GetComponent<BouquetMaker>();
 
 		initialized = true;
+
 		Debug.Log("Viveコントローラの初期化が完了");
 	}
 	
@@ -94,11 +97,21 @@ public class VRInputManager : MonoBehaviour {
 				if (hand.GetPressDown(SteamVR_Controller.ButtonMask.Trigger)) {
 					OnPressTrigger((HandType)i, true);
 				}
+				if ( hand.GetPressUp(SteamVR_Controller.ButtonMask.Trigger) )
+				{
+					OnReleaseTrigger((HandType)i);
+				}
+
 
 				if( hand.GetPressDown(SteamVR_Controller.ButtonMask.Touchpad))
 				{
 					OnPressTouchPad((HandType)i);
 				}
+
+				if( hand.GetPressDown(SteamVR_Controller.ButtonMask.Grip))
+				{
+					OnPressGrip((HandType)i);
+				}		
 			}	
 		}
 	}
@@ -115,7 +128,46 @@ public class VRInputManager : MonoBehaviour {
 		}else{
 			Debug.Log( ((HandType)type).ToString() + "のトリガーががっつり引かれた" );
 		}
-		picker.TryPick();
+
+		// 花束作成シーンなら摑み 歩きなら摘み
+		if( SceneManager.instance.sceneType.Equals( SceneManager.SceneType.Bouquet ) )
+		{
+			if( type == HandType.Right )
+			{
+				bouquetMaker.TryHold();
+			}
+			else
+			{
+				bouquetMaker.CompleteBouquet();
+			}
+
+		}
+		else
+		{
+			picker.TryPick();
+		}
+	}
+
+	/// <summary>
+	/// コントローラのトリガーが引かれた状態から解除された
+	/// </summary>
+	/// <param name="type">右手または左手</param>
+	/// <param name="half">半押しか？</param>
+	private void OnReleaseTrigger( HandType type )
+	{
+		Debug.Log( ((HandType)type).ToString() + "のトリガーが解除された" );
+
+		// 左手ならなにもしない
+		if( type.Equals(HandType.Left) )
+		{
+			return;
+		}
+
+		// 花束作成シーンなら花束パーツ解放
+		if( SceneManager.instance.sceneType.Equals( SceneManager.SceneType.Bouquet ))
+		{
+			bouquetMaker.Release();
+		}
 	}
 
 	/// <summary>
@@ -126,5 +178,29 @@ public class VRInputManager : MonoBehaviour {
 	{
 		Debug.Log( ((HandType)type).ToString() + "のタッチパッドが押された" );
 		tweet.Tweet();
+	}
+
+	/// <summary>
+	/// コントローラのグリップが押された
+	/// </summary>
+	/// <param name="type">Type.</param>
+	private void OnPressGrip( HandType type )
+	{
+		Debug.Log( ((HandType)type).ToString() + "のグリップが押された" );
+
+		// 通常シーンと花束作成シーンを切り替え
+		SceneManager sm = SceneManager.instance;
+		sm.sceneType = sm.sceneType.Equals( SceneManager.SceneType.Walk ) ? SceneManager.SceneType.Bouquet : SceneManager.SceneType.Walk;
+
+		if( sm.sceneType.Equals( SceneManager.SceneType.Bouquet ) )
+		{
+			// 花束作成シーンに切り替え時は花束パーツ生成
+			bouquetMaker.CreateBouquetParts();
+		}
+		else
+		{
+			// 歩きシーンに切り替え時は花束作成関連オブジェクト破棄
+			bouquetMaker.RemoveBouquetParts();
+		}
 	}
 }
