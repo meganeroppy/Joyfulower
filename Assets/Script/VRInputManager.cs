@@ -32,24 +32,27 @@ public class VRInputManager : MonoBehaviour {
 
 	public bool checkControllerVilidation = true;
 
+	private bool initialized = false;
 
 	void Start()
+	{
+		StartCoroutine ( StartLoad() );	
+	}
+
+	IEnumerator StartLoad()
 	{
 		if( !UnityEditor.PlayerSettings.virtualRealitySupported )
 		{
 			Debug.Log("virtualRealitySupportedが無効 キーボード操作モードに移行します");
 			controllerNonVR.SetActive(true);
 			cameraRig.SetActive(false);
-			return;
+			yield break;
 		}
-		else if( checkControllerVilidation && !leftHand.gameObject.activeInHierarchy || !rightHand.gameObject.activeInHierarchy )
+		while( checkControllerVilidation && !leftHand.gameObject.activeInHierarchy || !rightHand.gameObject.activeInHierarchy )
 		{
-			Debug.Log("Viveコントローラへの接続が確認できません キーボード操作モードに移行します");
-			controllerNonVR.SetActive(true);
-			cameraRig.SetActive(false);
-			return;
+			Debug.Log("Viveコントローラへの接続が確認ができるまで待機中");
+			yield return null;
 		}
-
 
 		hands = new List<SteamVR_Controller.Device>();
 
@@ -67,10 +70,19 @@ public class VRInputManager : MonoBehaviour {
 
 		tweet = GetComponent<TweeterSample>();
 		picker = GetComponent<FlowerPicker>();
+
+		initialized = true;
+		Debug.Log("Viveコントローラの初期化が完了");
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update () 
+	{
+		if (!initialized) 
+		{
+			return;	
+		}
+
 		for( int i=0 ; i<hands.Count ; i++ )
 		{
 			var hand = hands[i];
@@ -94,8 +106,8 @@ public class VRInputManager : MonoBehaviour {
 	/// <summary>
 	/// コントローラのトリガーが引かれた
 	/// </summary>
-	/// <param name="type">Type.</param>
-	/// <param name="half">If set to <c>true</c> half.</param>
+	/// <param name="type">右手または左手</param>
+	/// <param name="half">半押しか？</param>
 	private void OnPressTrigger( HandType type, bool half )
 	{
 		if( half ){
