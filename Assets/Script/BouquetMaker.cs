@@ -191,7 +191,7 @@ public class BouquetMaker : MonoBehaviour
 			var b = Instantiate( bouquetPartPrefab ).GetComponent<BouquetPart>();
 			var type = Random.Range(0, (int)BouquetPart.FlowerType.Count);
 			b.Create( (BouquetPart.FlowerType)type );
-			b.transform.position = transform.TransformPoint ( Vector3.forward * 2f );
+			b.transform.position = transform.TransformPoint ( Vector3.forward * 1f );
 		}
 	}
 
