@@ -7,6 +7,9 @@ using System.Collections.Generic;
 /// </summary>
 public class FlowerPicker : MonoBehaviour {
 
+	/// <summary>
+	/// 摘み可能範囲(m)
+	/// </summary>
 	public float pickRange = 5f;
 
 	// Update is called once per frame
@@ -23,7 +26,7 @@ public class FlowerPicker : MonoBehaviour {
 	/// </summary>
 	public void TryPick()
 	{
-		FlowerBase fb = FlowerBase.GetNearestFloer( this.transform.position, pickRange );
+		FlowerBase fb = FlowerBase.GetNearestFlower( this.transform.position, pickRange );
 		if( fb != null )
 		{
 			fb.Pick();

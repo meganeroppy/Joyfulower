@@ -7,6 +7,8 @@ using System.Collections.Generic;
 /// </summary>
 public class BouquetPart : MonoBehaviour {
 
+	public static List<BouquetPart> bList;
+
 	/// <summary>
 	/// つかめる範囲
 	/// </summary>
@@ -35,9 +37,18 @@ public class BouquetPart : MonoBehaviour {
 	private Transform modelBase;
 
 	/// <summary>
+	/// 初期位置
+	/// </summary>
+	private Vector3 originPos;
+
+	/// <summary>
+	/// 初期回転
+	/// </summary>
+	private Quaternion originRot;
+
+	/// <summary>
 	/// 生成
 	/// </summary>
-	/// <param name="type">Type.</param>
 	public void Create( FlowerType type )
 	{
 		if( (int)type >= modelList.Count )
@@ -47,23 +58,52 @@ public class BouquetPart : MonoBehaviour {
 		
 		GameObject g = Instantiate( modelList[(int)type] );
 		g.transform.SetParent( modelBase );
+
+		// 初期位置をセット
+		originPos = transform.position;
+		// 初期回転をセット
+		originRot = transform.rotation;
+
+		// リストに自身を追加
+		if( bList == null )
+		{
+			bList = new List<BouquetPart>();
+		}
+		bList.Add(this);
+	}
+
+	/// <summary>
+	/// つかめる状態にあることを見た目で表現
+	/// </summary>
+	public void Sparcle( bool key )
+	{
+		// 摑み可能状態エフェクトの切り替え
+		// effect.enable = key;
 	}
 
 	/// <summary>
 	/// 花束に追加
 	/// </summary>
-	public void Attatch(){
+	public void Attatch( Transform parent ){
 
 		// 花束にセット
+		transform.SetParent( parent );
+
 		// エフェクト
 	}
 
 	/// <summary>
-	/// 選択を解除
+	/// 離された
 	/// </summary>
-	public void Remove()
+	public void Release()
 	{
 		// オブジェクト削除
 		// エフェクト
+
+		//初期位置に戻る
+		transform.position = originPos;
+
+		// 初期回転に戻る
+		transform.rotation = originRot;
 	}
 }

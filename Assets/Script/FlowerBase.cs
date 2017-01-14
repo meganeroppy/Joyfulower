@@ -94,7 +94,7 @@ public class FlowerBase : MonoBehaviour {
 	/// </summary>
 	/// <param name="myPos">自分の位置</param>
 	/// <param name="pickRange">自分の位置基準の検索範囲 指定しなければ範囲無限</param>
-	public static FlowerBase GetNearestFloer( Vector3 myPos, float range=float.MaxValue)
+	public static FlowerBase GetNearestFlower( Vector3 myPos, float range=float.MaxValue)
 	{
 		List<FlowerBase> inRange = new List<FlowerBase>();
 
