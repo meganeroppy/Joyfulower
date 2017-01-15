@@ -49,10 +49,21 @@ public class VRInputManager : MonoBehaviour {
 			cameraRig.SetActive(false);
 			yield break;
 		}
+
+		int totalWaitSec = 0;
+		int maxWaitCount = 15;
 		while( checkControllerVilidation && !leftHand.gameObject.activeInHierarchy || !rightHand.gameObject.activeInHierarchy )
 		{
-			Debug.Log("Viveコントローラへの接続が確認ができるまで待機中");
-			yield return null;
+			Debug.Log("Viveコントローラへの接続が確認ができるまで待機中 ["  +  totalWaitSec.ToString() + " / " + maxWaitCount.ToString() + " ]");
+			yield return new WaitForSeconds(1);
+
+			if( ++totalWaitSec > maxWaitCount )
+			{
+				Debug.Log(maxWaitCount.ToString() + "秒待ってもViveコントローラへの接続が確認できなかったので、キーボード捜査モードに移行します。");
+				controllerNonVR.SetActive(true);
+				cameraRig.SetActive(false);
+				yield break;
+			}
 		}
 
 		hands = new List<SteamVR_Controller.Device>();
