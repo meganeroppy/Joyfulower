@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -63,6 +64,12 @@ public class FlowerBase : MonoBehaviour {
 	/// 生成時のエフェクト
 	/// </summary>
 	public GameObject effect;
+
+	/// <summary>
+	/// エネルギーゲージ
+	/// </summary>
+	[SerializeField]
+	private Image gauge;
 
 	/// <summary>
 	/// 花の寿命
@@ -154,6 +161,10 @@ public class FlowerBase : MonoBehaviour {
 		energyList.Add(energy);
 
 		Debug.Log( "[ " + fList.IndexOf(this).ToString() + " ]"  + "番目の花ポイントに [ " + energy.ToString() + " ] を加算 現在 ( " + energyList.Count.ToString() + " / " + energyToBloom.ToString() + " )"  );
+
+		// ゲージ割合更新
+		var rate = (float)energyList.Count / energyToBloom;
+		gauge.fillAmount = rate;
 
 		if( energyList.Count >= energyToBloom )
 		{
