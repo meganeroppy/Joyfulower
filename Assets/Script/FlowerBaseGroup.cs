@@ -8,23 +8,6 @@ public class FlowerBaseGroup : MonoBehaviour {
 	private List<FlowerBase> child;
 
 	/// <summary>
-	/// 情報取得頻度
-	/// </summary>
-	[SerializeField]
-	float checkInterval = 15f;
-	float timer = 0;
-
-	// Update is called once per frame
-	void Update () {
-		if( UpdateCheckTimer() )
-		{
-			CheckData();
-		}
-
-	//	GetInput();
-	}
-
-	/// <summary>
 	/// デバッグ用
 	/// </summary>
 	void SetAllFlower()
@@ -32,7 +15,7 @@ public class FlowerBaseGroup : MonoBehaviour {
 		child.ForEach( f => 
 			{
 				f.Bloom();
-			} );
+		} );
 	}
 
 	/// <summary>
@@ -45,26 +28,13 @@ public class FlowerBaseGroup : MonoBehaviour {
 	}
 
 	/// <summary>
-	/// サーバーチェックタイマー更新
+	/// ツイート情報を元に花の生成を行う
 	/// </summary>
-	/// <returns><c>true</c>, if check timer was updated, <c>false</c> otherwise.</returns>
-	bool UpdateCheckTimer()
+	public void SetFlower(string data)
 	{
-		timer += Time.deltaTime;
-		if( timer >= checkInterval )
-		{
-			timer = 0;
-			return true;
-		}
-		return false;
-	}
+		// TODO: 情報を解析して花を咲かせる
 
-	/// <summary>
-	/// サーバーからデータを取得する
-	/// </summary>
-	void CheckData()
-	{
-		
+		SetRandomFlower();
 	}
 
 	/// <summary>

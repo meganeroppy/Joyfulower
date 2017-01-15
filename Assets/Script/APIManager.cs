@@ -86,7 +86,9 @@ namespace api
 			}
 		}
 
-
+		/// <summary>
+		/// ツイート情報を取得する
+		/// </summary>
 		public IEnumerator GetTweetInfo( System.Action< GetTweetInfoResponseParameter > callback )
 		{
 			var request = new GetTweetInfoRequestParameter();
