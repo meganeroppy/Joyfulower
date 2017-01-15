@@ -41,7 +41,8 @@ public class SceneManager : MonoBehaviour
 	private FlowerBaseGroup flowerBaseGroup;
 
 	// Use this for initialization
-	void Start () {
+	void Start () 
+	{
 		instance = this;
 		sceneType = SceneType.Walk;
 

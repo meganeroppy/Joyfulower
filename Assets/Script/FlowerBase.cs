@@ -22,6 +22,18 @@ public class FlowerBase : MonoBehaviour {
 	}
 
 	/// <summary>
+	/// 所持エナジー
+	/// タイプ別に保持する
+	/// 必要エナジーに達した時、含有栗の最も多いタイプの花がさく
+	/// </summary>
+	private List<FlowerType> energyList;
+
+	/// <summary>
+	/// 開花に必要なエナジー
+	/// </summary>
+	private const int energyToBloom = 6;
+
+	/// <summary>
 	/// 花のモデルリスト
 	/// </summary>
 	public GameObject[] modelPrefab;
@@ -55,7 +67,7 @@ public class FlowerBase : MonoBehaviour {
 	/// <summary>
 	/// 花の寿命
 	/// </summary>
-	public float lifeTime = 15f;
+	public float lifeTime = 60f;
 	private float timer = 0;
 
 	public static List<FlowerBase> fList;
@@ -67,6 +79,8 @@ public class FlowerBase : MonoBehaviour {
 			fList = new List<FlowerBase>();
 		}
 		fList.Add(this);
+
+		energyList = new List<FlowerType>();
 	}
 
 	void Update()
@@ -133,10 +147,79 @@ public class FlowerBase : MonoBehaviour {
 	}
 
 	/// <summary>
+	/// エナジーを付与
+	/// </summary>
+	public void AddEnergy( FlowerType energy )
+	{
+		energyList.Add(energy);
+
+		Debug.Log( "[ " + fList.IndexOf(this).ToString() + " ]"  + "番目の花ポイントに [ " + energy.ToString() + " ] を加算 現在 ( " + energyList.Count.ToString() + " / " + energyToBloom.ToString() + " )"  );
+
+		if( energyList.Count >= energyToBloom )
+		{
+			Bloom( GetMostContainedType() );
+		}
+	}
+
+	/// <summary>
+	/// 最お多く含有しているエナジータイプを調べる
+	/// </summary>
+	/// <returns>The ingredient.</returns>
+	private FlowerType GetMostContainedType()
+	{
+		var counter = new List<int>();
+		for( int i=0 ; i< energyList.Count ; i++ )
+		{
+			counter.Add(0);
+		}
+
+		// リストに分けて保存
+		energyList.ForEach( e =>
+		{
+			counter[(int)e]++;
+		});
+
+
+		int largestIdx = 0;
+
+		for( int i=0 ; i< counter.Count ; i++)
+		{
+			if( counter[i] > counter[ largestIdx ] )
+			{
+				largestIdx = i;
+			}
+		}
+
+		// 同着インデックスリスト
+		var sameAmounctIdx = new List<int>();
+		for( int i=0 ; i< counter.Count ; i++)
+		{
+			if( counter[i] == counter[ largestIdx ] )
+			{
+				sameAmounctIdx.Add(i);
+			}
+		}
+
+		// 同着がいたらランダム
+		if( sameAmounctIdx.Count > 0 )
+		{
+			sameAmounctIdx.Add( largestIdx );
+			int idx = Random.Range(0, sameAmounctIdx.Count);
+
+			return (FlowerType)sameAmounctIdx[ idx ]; 
+		}
+		else
+		{
+			return (FlowerType)largestIdx;
+		}	
+	}
+
+
+	/// <summary>
 	/// 花をセット
 	/// </summary>
 	/// <param name="type">Type.</param>
-	public void Bloom(FlowerType type)
+	private void Bloom(FlowerType type)
 	{		
 		if( model != null )
 		{
@@ -150,6 +233,7 @@ public class FlowerBase : MonoBehaviour {
 			Debug.LogError("花タイプが無効");
 			return;
 		}
+
 		model = GameObject.Instantiate<GameObject>(modelPrefab[idx]);
 		model.transform.SetParent(modelBase);
 		model.transform.localPosition = Vector3.zero;
@@ -168,10 +252,13 @@ public class FlowerBase : MonoBehaviour {
 		g.transform.localRotation = Quaternion.identity;
 
 		timer = lifeTime;
+
+		energyList.Clear();
 	}
 
 	/// <summary>
 	/// 花をセット 種類はランダム
+	/// デバッグ用
 	/// </summary>
 	public void Bloom()
 	{
@@ -193,6 +280,9 @@ public class FlowerBase : MonoBehaviour {
 		{
 			Destroy( particle.gameObject );
 		}
+
+		// エナジーリスト初期化
+		energyList.Clear();
 	}
 
 	/// <summary>

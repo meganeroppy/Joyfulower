@@ -13,8 +13,8 @@ public class FlowerBaseGroup : MonoBehaviour {
 	void SetAllFlower()
 	{
 		child.ForEach( f => 
-			{
-				f.Bloom();
+		{
+			f.Bloom();
 		} );
 	}
 
@@ -24,19 +24,18 @@ public class FlowerBaseGroup : MonoBehaviour {
 	void SetRandomFlower(FlowerBase.FlowerType flowerType)
 	{
 		int idx = Random.Range(0, child.Count);
-		child[idx].Bloom(flowerType);
+		child[idx].AddEnergy(flowerType);
 	}
 
 	/// <summary>
-	/// ランダム位置にランダム花を一輪咲かせる
+	/// ランダム位置にランダム種類の花を一輪咲かせる
 	/// </summary>
 	void SetRandomFlower()
 	{
 		int idx = Random.Range(0, child.Count);
 		child[idx].Bloom();
 	}
-
-
+		
 	/// <summary>
 	/// ツイート情報を元に花の生成を行う
 	/// </summary>
