@@ -65,9 +65,10 @@ public class SceneManager : MonoBehaviour
 
 		yield return StartCoroutine( api.GetTweetInfo( res => 
 		{
-				Debug.Log("APIの返却値で花の生成を行います");
+			Debug.Log("APIの返却値で花の生成を行います");
 			
-			flowerBaseGroup.SetFlower("");
+			
+				res.tweetInfoList.ForEach( v => { flowerBaseGroup.SetFlower( v ); });
 		} ) );
 
 		// 一定時間待機

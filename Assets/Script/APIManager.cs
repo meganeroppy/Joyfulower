@@ -38,7 +38,9 @@ namespace api
 		/// <summary>
 		/// 呼び出し
 		/// </summary>
-		private IEnumerator Call<ResType>(string urlStr, WWWForm form=null, System.Action<ResType> callback=null){
+		private IEnumerator Call<ResType>(string urlStr, WWWForm form=null, System.Action<GetTweetInfoResponseParameter> callback=null)
+		where ResType : GetTweetInfoResponseParameter
+		{
 			Debug.Log("通信開始 : " + urlStr);
 
 			WWW www = null;
@@ -76,14 +78,56 @@ namespace api
 
 			yield return www;
 
-			// TODO; 値を取り出す 
-			var res = www;
+			//  値を取り出す 
+			var text = www.text;
 
-			if( res != null )
-			{
-				// 適切な値を返す
-				callback( default( ResType ) );
+			if( !string.IsNullOrEmpty( text ) )
+			{				
+				// パースして値を返す
+				callback( ParsefromCsv<ResType>( text ) );
 			}
+		}
+
+		/// <summary>
+		/// CSVを
+		/// </summary>
+		/// <returns>The csv.</returns>
+		/// <param name="csv">Csv.</param>
+		/// <typeparam name="ResType">The 1st type parameter.</typeparam>
+		private GetTweetInfoResponseParameter ParsefromCsv<ResType>(string csv)
+			where ResType : GetTweetInfoResponseParameter
+		{
+			var param = new GetTweetInfoResponseParameter ();
+			param.tweetInfoList = new List<GetTweetInfoResponseParameter.TweetInfo> ();
+
+			// レコード単位で分割
+			var records = csv.Split ('\n');
+			for (int i = 0; i < records.Length; i++) 
+			{
+				var tInfo = new GetTweetInfoResponseParameter.TweetInfo ();
+
+				var data = records [i].Split (',');
+
+				if (data.Length < 7) 
+				{
+					continue;
+				}
+					
+				tInfo.gps = new GPS ();
+				double.TryParse (data [0], out tInfo.gps.latitude);
+				double.TryParse (data [1], out tInfo.gps.longitude);
+				double.TryParse (data [2], out tInfo.gps.altitude);
+				tInfo.felling = data [3].ToString ();
+				tInfo.comment = data [4].ToString ();
+				DateTime.TryParse (data [5], out tInfo.date);
+				tInfo.status = data [6].ToString ();
+
+				var value = new GetTweetInfoResponseParameter ();
+
+				param.tweetInfoList.Add ( tInfo );
+			}
+
+			return param;
 		}
 
 		/// <summary>
@@ -94,9 +138,9 @@ namespace api
 			var request = new GetTweetInfoRequestParameter();
 
 			yield return StartCoroutine( Call<GetTweetInfoResponseParameter>( request.url, null, res =>
-				{
-					callback( res );
-				}) );
+			{
+				callback( res );
+			}) );
 		}
 	}		
 
@@ -108,17 +152,17 @@ namespace api
 		/// <summary>
 		/// 経度
 		/// </summary>
-		public float longitude;
+		public double longitude;
 
 		/// <summary>
 		/// 緯度
 		/// </summary>
-		public float latitude;
+		public double latitude;
 
 		/// <summary>
 		/// 高度
 		/// </summary>
-		public float altitude;
+		public double altitude;
 	}
 
 	/// <summary>
@@ -131,6 +175,7 @@ namespace api
 		/// </summary>
 		public struct TweetInfo
 		{
+			public int id;
 			/// <summary>
 			/// 位置情報
 			/// </summary>
@@ -139,12 +184,16 @@ namespace api
 			/// <summary>
 			/// 幸福指数
 			/// </summary>
-			public int happiness;
+			public string felling;
+
+			public string comment;
 
 			/// <summary>
 			/// つぶやかれた時間
 			/// </summary>
-			public DateTime time;
+			public DateTime date;
+
+			public string status;
 		}
 
 		/// <summary>

@@ -12,11 +12,13 @@ public class FlowerBase : MonoBehaviour {
 	/// </summary>
 	public enum FlowerType
 	{
+		Yellow,
 		Red,
-		White,
+		Pink,
 		Purple,
-		Blue,
-		Count,
+		Rose,
+		Sunflower,
+		Count
 	}
 
 	/// <summary>
