@@ -1,0 +1,96 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: Asplenium antiquum Makino
+  m_Shader: {fileID: 4800000, guid: 8a0fc0f628494154c8f6137304d3f3ed, type: 3}
+  m_ShaderKeywords: []
+  m_SavedProperties:
+    serializedVersion: 2
+    m_TexEnvs:
+      data:
+        first:
+          name: _MainTex
+        second:
+          m_Texture: {fileID: 2800000, guid: 50c9f7772b9b021428cbaac915718f36, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _BumpMap
+        second:
+          m_Texture: {fileID: 2800000, guid: a8f935d3e9d414e40928ebcb26c8337b, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _Diffuse
+        second:
+          m_Texture: {fileID: 2800000, guid: cb69322b33e5ac0499efd0bcc96aac0d, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _Bump
+        second:
+          m_Texture: {fileID: 2800000, guid: 564e418e918c9f147a463d5479eb2b67, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+    m_Floats:
+      data:
+        first:
+          name: _Cutoff
+        second: .5
+      data:
+        first:
+          name: _Shininess
+        second: 1
+      data:
+        first:
+          name: _SquashAmount
+        second: 1
+      data:
+        first:
+          name: _BaseLight
+        second: 1
+      data:
+        first:
+          name: _AO
+        second: 0
+      data:
+        first:
+          name: _Occlusion
+        second: 0
+      data:
+        first:
+          name: _ShadowStrength
+        second: 1
+      data:
+        first:
+          name: _Gloss
+        second: .791999996
+    m_Colors:
+      data:
+        first:
+          name: _Color
+        second: {r: .99253732, g: .968710601, b: .822176456, a: 1}
+      data:
+        first:
+          name: _SpecColor
+        second: {r: .266592622, g: .283582091, b: .196814433, a: 0}
+      data:
+        first:
+          name: _Emission
+        second: {r: .104477584, g: .103697903, b: .103697903, a: 1}
+      data:
+        first:
+          name: _Scale
+        second: {r: 1, g: 1, b: 1, a: 1}
+      data:
+        first:
+          name: _Emiss
+        second: {r: .0518127456, g: .074626863, b: .0183782559, a: 1}
