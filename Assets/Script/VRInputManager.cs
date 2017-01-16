@@ -42,6 +42,7 @@ public class VRInputManager : MonoBehaviour {
 
 	IEnumerator StartLoad()
 	{
+#if UNITY_EDITOR
 		if( !UnityEditor.PlayerSettings.virtualRealitySupported )
 		{
 			Debug.Log("virtualRealitySupportedが無効 キーボード操作モードに移行します");
@@ -49,6 +50,7 @@ public class VRInputManager : MonoBehaviour {
 			cameraRig.SetActive(false);
 			yield break;
 		}
+#endif
 
 		int totalWaitSec = 0;
 		int maxWaitCount = 15;

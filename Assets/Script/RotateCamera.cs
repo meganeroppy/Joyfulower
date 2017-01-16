@@ -4,11 +4,12 @@ using System.Collections;
 class RotateCamera : MonoBehaviour
 {
 	[SerializeField]
-	Camera rotCamera;
+	Transform rotCamera;
 
 	void Update () 
 	{
-		transform.rotation = rotCamera.transform.rotation;
+	//	transform.rotation = Quaternion.Euler (0, rotCamera.transform.rotation.y, 0);
+		transform.LookAt( rotCamera );
 	}
 
 	void Disable() 
