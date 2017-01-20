@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class SceneManager : MonoBehaviour 
 {
@@ -40,12 +41,36 @@ public class SceneManager : MonoBehaviour
 	[SerializeField]
 	private FlowerBaseGroup flowerBaseGroup;
 
+	/// <summary>
+	/// 取得した花の構造体
+	/// </summary>
+	public class FlowerItem
+	{
+		/// <summary>
+		/// 花の種類
+		/// </summary>
+		public FlowerBase.FlowerType flowerType;
+
+		/// <summary>
+		/// ゲームオブジェクト名
+		/// </summary>
+		public string name;
+
+		/// <summary>
+		/// 所持数
+		/// </summary>
+		public int count;
+	}
+
+	public List<FlowerItem> fList;
+
 	// Use this for initialization
 	void Start () 
 	{
 		instance = this;
 		sceneType = SceneType.Walk;
 
+		fList = new List<FlowerItem>();
 
 		if( api == null )
 		{
