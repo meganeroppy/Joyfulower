@@ -41,8 +41,12 @@ public class GameDirector : MonoBehaviour {
 
             //アニメーションを追加
             Animator animator = item.GetComponent<Animator>();
+			if( animator == null )
+			{
+				Debug.LogError( item.name + "にAnimatorがセットされてない" );
+				return;
+			}
             animator.runtimeAnimatorController = Resources.Load<RuntimeAnimatorController>(name_List[i]);
-
         }
     }
 
@@ -75,12 +79,12 @@ public class GameDirector : MonoBehaviour {
     void Start () {
 
         // Listに初期値を設定
-        name_List.Add("maru");
-        num_List.Add(2);
-        name_List.Add("sankaku");
-        num_List.Add(3);
-        name_List.Add("shikaku");
-        num_List.Add(1);
+//       name_List.Add("maru");
+ //       num_List.Add(2);
+  //      name_List.Add("sankaku");
+   //     num_List.Add(3);
+    //    name_List.Add("shikaku");
+     //   num_List.Add(1);
 
         //UIを描画
         SetUI();
