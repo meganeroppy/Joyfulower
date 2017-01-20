@@ -7,7 +7,10 @@ using System.Collections.Generic;
 /// </summary>
 public class VRInputManager : MonoBehaviour {
 
-	enum HandType{
+	/// <summary>
+	/// 0=Left 1=Right
+	/// </summary>
+	public enum HandType{
 		Left,
 		Right,
 	};
@@ -56,10 +59,10 @@ public class VRInputManager : MonoBehaviour {
 		int maxWaitCount = 15;
 		while( checkControllerVilidation && !leftHand.gameObject.activeInHierarchy || !rightHand.gameObject.activeInHierarchy )
 		{
-			Debug.Log("Viveコントローラへの接続が確認ができるまで待機中 ["  +  totalWaitSec.ToString() + " / " + maxWaitCount.ToString() + " ]");
+			Debug.Log("Viveコントローラへの接続が確認ができるまで待機中 ["  +  totalWaitSec.ToString() + " / " + maxWaitCount.ToString() + " ] スペースキーでスキップ");
 			yield return new WaitForSeconds(1);
 
-			if( ++totalWaitSec > maxWaitCount )
+			if( ++totalWaitSec > maxWaitCount || Input.GetKeyDown(KeyCode.Space))
 			{
 				Debug.Log(maxWaitCount.ToString() + "秒待ってもViveコントローラへの接続が確認できなかったので、キーボード捜査モードに移行します。");
 				controllerNonVR.SetActive(true);
@@ -114,8 +117,7 @@ public class VRInputManager : MonoBehaviour {
 				{
 					OnReleaseTrigger((HandType)i);
 				}
-
-
+					
 				if( hand.GetPressDown(SteamVR_Controller.ButtonMask.Touchpad))
 				{
 					OnPressTouchPad((HandType)i);
@@ -134,18 +136,18 @@ public class VRInputManager : MonoBehaviour {
 	/// </summary>
 	/// <param name="type">右手または左手</param>
 	/// <param name="half">半押しか？</param>
-	private void OnPressTrigger( HandType type, bool half )
+	private void OnPressTrigger( HandType handType, bool half )
 	{
 		if( half ){
-			Debug.Log( ((HandType)type).ToString() + "のトリガーがちょっと引かれた" );
+			Debug.Log( ((HandType)handType).ToString() + "のトリガーがちょっと引かれた" );
 		}else{
-			Debug.Log( ((HandType)type).ToString() + "のトリガーががっつり引かれた" );
+			Debug.Log( ((HandType)handType).ToString() + "のトリガーががっつり引かれた" );
 		}
 
 		// 花束作成シーンなら摑み 歩きなら摘み
 		if( SceneManager.instance.sceneType.Equals( SceneManager.SceneType.Bouquet ) )
 		{
-			if( type == HandType.Right )
+			if( handType == HandType.Right )
 			{
 				bouquetMaker.TryHold();
 			}
@@ -157,7 +159,13 @@ public class VRInputManager : MonoBehaviour {
 		}
 		else
 		{
-			picker.TryPick();
+			var idx = (int)handType;
+
+			if( hands.Count >= idx )
+			{
+				// TODO "pos"でワールド座標が取れているかチェックすること
+				picker.TryPick(hands[ idx ].transform.pos);
+			}
 		}
 	}
 

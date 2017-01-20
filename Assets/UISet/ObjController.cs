@@ -39,7 +39,7 @@ public class ObjController : MonoBehaviour {
 
 //            GameObject director = GameObject.Find("GameDirector");
 //            director.GetComponent<GameDirector>().CountObj(Obj.name);
-			GameDirector.instance.CountObj(obj.name);
+//			GameDirector.instance.CountObj(obj.name);
 
         }
     }

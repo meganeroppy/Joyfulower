@@ -17,16 +17,17 @@ public class FlowerPicker : MonoBehaviour {
 		if( Input.GetKeyDown(KeyCode.P) )
 		{
 			// 花を摘む
-			TryPick();
+			TryPick(transform.position);
 		}
 	}
 
 	/// <summary>
 	/// 範囲内の花を摘む
 	/// </summary>
-	public void TryPick()
+	public void TryPick( Vector3 originPos )
 	{
-		FlowerBase fb = FlowerBase.GetNearestFlower( this.transform.position, pickRange );
+		// 基準座標から最寄りの花を取得
+		FlowerBase fb = FlowerBase.GetNearestFlower( originPos, pickRange );
 		if( fb != null )
 		{
 			fb.Pick();

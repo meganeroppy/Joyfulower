@@ -19,8 +19,14 @@ public class FlowerBase : MonoBehaviour {
 		Purple,
 		Rose,
 		Sunflower,
-		Count
+		Count,
+		None
 	}
+
+	/// <summary>
+	/// 現在の花タイプ
+	/// </summary>
+	private FlowerType currentFlowerType;
 
 	/// <summary>
 	/// 所持エナジー
@@ -88,6 +94,8 @@ public class FlowerBase : MonoBehaviour {
 		fList.Add(this);
 
 		energyList = new List<FlowerType>();
+
+		currentFlowerType = FlowerType.None;
 	}
 
 	void Update()
@@ -157,14 +165,26 @@ public class FlowerBase : MonoBehaviour {
 	/// エナジーを付与
 	/// </summary>
 	public void AddEnergy( FlowerType energy )
-	{
+	{ 
+		// 花がすでに咲いていたらなにもしない
+		if( model != null )
+		{
+			return;
+		}
+
 		energyList.Add(energy);
 
 		Debug.Log( "[ " + fList.IndexOf(this).ToString() + " ]"  + "番目の花ポイントに [ " + energy.ToString() + " ] を加算 現在 ( " + energyList.Count.ToString() + " / " + energyToBloom.ToString() + " )"  );
 
 		// ゲージ割合更新
 		var rate = (float)energyList.Count / energyToBloom;
+
 		gauge.fillAmount = rate;
+
+		// 満タン時は非表示
+		gauge.enabled = rate < 1;
+
+		// TODO: 満タンになったゲージ演出する
 
 		if( energyList.Count >= energyToBloom )
 		{
@@ -173,7 +193,7 @@ public class FlowerBase : MonoBehaviour {
 	}
 
 	/// <summary>
-	/// 最お多く含有しているエナジータイプを調べる
+	/// 最も多く含有しているエナジータイプを調べる
 	/// </summary>
 	/// <returns>The ingredient.</returns>
 	private FlowerType GetMostContainedType()
@@ -189,8 +209,7 @@ public class FlowerBase : MonoBehaviour {
 		{
 			counter[(int)e]++;
 		});
-
-
+				
 		int largestIdx = 0;
 
 		for( int i=0 ; i< counter.Count ; i++)
@@ -265,6 +284,9 @@ public class FlowerBase : MonoBehaviour {
 		timer = lifeTime;
 
 		energyList.Clear();
+
+		// 現在の花タイプをセット
+		currentFlowerType = type;
 	}
 
 	/// <summary>
@@ -294,6 +316,8 @@ public class FlowerBase : MonoBehaviour {
 
 		// エナジーリスト初期化
 		energyList.Clear();
+
+		currentFlowerType = FlowerType.None;
 	}
 
 	/// <summary>
@@ -304,9 +328,33 @@ public class FlowerBase : MonoBehaviour {
 		if( model != null )
 		{
 			// UIに反映
-			if (GameDirector.instance != null) {
-				GameDirector.instance.CountObj (model.gameObject.name);
+//			if (GameDirector.instance != null) {
+//				GameDirector.instance.CountObj (model.gameObject.name);
+//			}
+
+			// 花アイテム情報をリストに追加
+			// 同じ花タイプのアイテムがすでにリストに入っているかチェック
+			var fItem = SceneManager.instance.fList.Find( f => f.flowerType.Equals( currentFlowerType ) );
+
+			if( fItem != null )
+			{
+				// 入っていたらカウントを加算
+				fItem.count++;
+				Debug.Log( fItem.flowerType + "の数を更新[ " + fItem.count.ToString() + " ]"); 
 			}
+			else
+			{
+				// 入っていなかったら新しく追加する
+				fItem = new SceneManager.FlowerItem();
+				fItem.flowerType = currentFlowerType;
+				fItem.name = model.name;
+				fItem.count = 1;
+				SceneManager.instance.fList.Add( fItem );
+				Debug.Log( fItem.flowerType + "を新しく追加");
+			}
+
+			// UI更新
+			GameDirector.instance.SetUI();
 
 			// モデルを削除
 			Die();

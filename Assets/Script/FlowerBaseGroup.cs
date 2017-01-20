@@ -48,10 +48,10 @@ public class FlowerBaseGroup : MonoBehaviour {
 		var type = (FlowerBase.FlowerType)iType;
 	
 		// TODO:花の場所をセット
-		var position = info.gps;
+		//var position = info.gps;
 
 		// TODO:花が咲く時間をセット
-		var date = info.date;
+		//var date = info.date;
 
 		SetRandomFlower(type);
 	}
