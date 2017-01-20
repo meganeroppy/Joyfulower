@@ -165,14 +165,26 @@ public class FlowerBase : MonoBehaviour {
 	/// エナジーを付与
 	/// </summary>
 	public void AddEnergy( FlowerType energy )
-	{
+	{ 
+		// 花がすでに咲いていたらなにもしない
+		if( model != null )
+		{
+			return;
+		}
+
 		energyList.Add(energy);
 
 		Debug.Log( "[ " + fList.IndexOf(this).ToString() + " ]"  + "番目の花ポイントに [ " + energy.ToString() + " ] を加算 現在 ( " + energyList.Count.ToString() + " / " + energyToBloom.ToString() + " )"  );
 
 		// ゲージ割合更新
 		var rate = (float)energyList.Count / energyToBloom;
+
 		gauge.fillAmount = rate;
+
+		// 満タン時は非表示
+		gauge.enabled = rate < 1;
+
+		// TODO: 満タンになったゲージ演出する
 
 		if( energyList.Count >= energyToBloom )
 		{
@@ -181,7 +193,7 @@ public class FlowerBase : MonoBehaviour {
 	}
 
 	/// <summary>
-	/// 最お多く含有しているエナジータイプを調べる
+	/// 最も多く含有しているエナジータイプを調べる
 	/// </summary>
 	/// <returns>The ingredient.</returns>
 	private FlowerType GetMostContainedType()
@@ -197,8 +209,7 @@ public class FlowerBase : MonoBehaviour {
 		{
 			counter[(int)e]++;
 		});
-
-
+				
 		int largestIdx = 0;
 
 		for( int i=0 ; i< counter.Count ; i++)

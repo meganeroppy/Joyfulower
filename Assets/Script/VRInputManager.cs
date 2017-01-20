@@ -59,10 +59,10 @@ public class VRInputManager : MonoBehaviour {
 		int maxWaitCount = 15;
 		while( checkControllerVilidation && !leftHand.gameObject.activeInHierarchy || !rightHand.gameObject.activeInHierarchy )
 		{
-			Debug.Log("Viveコントローラへの接続が確認ができるまで待機中 ["  +  totalWaitSec.ToString() + " / " + maxWaitCount.ToString() + " ]");
+			Debug.Log("Viveコントローラへの接続が確認ができるまで待機中 ["  +  totalWaitSec.ToString() + " / " + maxWaitCount.ToString() + " ] スペースキーでスキップ");
 			yield return new WaitForSeconds(1);
 
-			if( ++totalWaitSec > maxWaitCount )
+			if( ++totalWaitSec > maxWaitCount || Input.GetKeyDown(KeyCode.Space))
 			{
 				Debug.Log(maxWaitCount.ToString() + "秒待ってもViveコントローラへの接続が確認できなかったので、キーボード捜査モードに移行します。");
 				controllerNonVR.SetActive(true);

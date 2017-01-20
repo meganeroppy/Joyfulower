@@ -89,7 +89,7 @@ namespace api
 		}
 
 		/// <summary>
-		/// CSVを
+		/// CSVを構造体にパース
 		/// </summary>
 		/// <returns>The csv.</returns>
 		/// <param name="csv">Csv.</param>
@@ -121,8 +121,6 @@ namespace api
 				tInfo.comment = data [4].ToString ();
 				DateTime.TryParse (data [5], out tInfo.date);
 				tInfo.status = data [6].ToString ();
-
-				var value = new GetTweetInfoResponseParameter ();
 
 				param.tweetInfoList.Add ( tInfo );
 			}
