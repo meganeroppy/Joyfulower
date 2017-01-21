@@ -15,10 +15,15 @@ public class VRInputManager : MonoBehaviour
 		Right,
 	};
 
-	public SteamVR_TrackedObject rightHand;
-	public SteamVR_TrackedObject leftHand;
+	/// <summary>
+	/// オブジェクトとしての手
+	/// </summary>
+	public List<SteamVR_TrackedObject> handObjects;
 
-	private List<SteamVR_Controller.Device> hands;
+	/// <summary>
+	/// 入力装置としての手
+	/// </summary>
+	private List<SteamVR_Controller.Device> handDevices;
 
 	private TweeterSample tweet;
 	private FlowerPicker picker;
@@ -57,7 +62,7 @@ public class VRInputManager : MonoBehaviour
 
 		int totalWaitSec = 0;
 		int maxWaitCount = 15;
-		while( checkControllerVilidation && !leftHand.gameObject.activeInHierarchy || !rightHand.gameObject.activeInHierarchy )
+		while( checkControllerVilidation && !handObjects[(int)HandType.Left].gameObject.activeInHierarchy || !handObjects[(int)HandType.Right].gameObject.activeInHierarchy )
 		{
 			Debug.Log("Viveコントローラへの接続が確認ができるまで待機中 ["  +  totalWaitSec.ToString() + " / " + maxWaitCount.ToString() + " ] スペースキーでスキップ");
 			yield return new WaitForSeconds(1);
@@ -71,18 +76,18 @@ public class VRInputManager : MonoBehaviour
 			}
 		}
 
-		hands = new List<SteamVR_Controller.Device>();
+		handDevices = new List<SteamVR_Controller.Device>();
 
-		var hand = SteamVR_Controller.Input((int) leftHand.index);
+		var hand = SteamVR_Controller.Input((int) handObjects[(int)HandType.Left].index);
 		if( hand != null )
 		{
-			hands.Add(hand);
+			handDevices.Add(hand);
 		}
 
-		hand = SteamVR_Controller.Input((int) rightHand.index);
+		hand = SteamVR_Controller.Input((int) handObjects[(int)HandType.Right].index);
 		if( hand != null )
 		{
-			hands.Add(hand);
+			handDevices.Add(hand);
 		}
 
 		tweet = GetComponent<TweeterSample>();
@@ -102,9 +107,9 @@ public class VRInputManager : MonoBehaviour
 			return;	
 		}
 
-		for( int i=0 ; i<hands.Count ; i++ )
+		for( int i=0 ; i<handDevices.Count ; i++ )
 		{
-			var hand = hands[i];
+			var hand = handDevices[i];
 			if( hand != null )
 			{			
 				if (hand.GetTouchDown(SteamVR_Controller.ButtonMask.Trigger) || Input.GetKeyDown(KeyCode.A)) {
@@ -161,10 +166,10 @@ public class VRInputManager : MonoBehaviour
 		{
 			var idx = (int)handType;
 
-			if( hands.Count >= idx )
+			if( handObjects.Count >= idx )
 			{
 				// TODO "pos"でワールド座標が取れているかチェックすること
-				picker.TryPick(hands[ idx ].transform.pos);
+				picker.TryPick(handObjects[ idx ].transform.position);
 			}
 		}
 	}

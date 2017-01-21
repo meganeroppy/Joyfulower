@@ -212,7 +212,7 @@ public class BouquetMaker : MonoBehaviour
 		// 左手に花束の紙部分を持たせる
 		if( bouquetPackage == null)
 		{
-			bouquetPackage = Instantiate(bouquetPackage) as GameObject;
+			bouquetPackage = Instantiate(bouquetPackagePrefab) as GameObject;
 			bouquetPackage.transform.SetParent( bouquetbase );
 			// TODO: 位置と回転を指定
 		}
