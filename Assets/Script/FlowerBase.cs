@@ -129,6 +129,7 @@ public class FlowerBase : MonoBehaviour {
 	void Update()
 	{
 		UpdateLifeTimer();
+
 	}
 
 	/// <summary>
@@ -142,10 +143,28 @@ public class FlowerBase : MonoBehaviour {
 		}
 
 		timer -= Time.deltaTime;
-		if( timer <= 0 )
+		if( timer <= 0 && model != null)
 		{
-			Die();
+			StartCoroutine( Wither() );
 		}
+	}
+
+	/// <summary>
+	/// 花が枯れる演出
+	/// </summary>
+	IEnumerator Wither()
+	{
+		if( tween != null )
+		{
+			yield break;
+		}
+
+		// 徐々に小さくなる
+		tween = model.transform.DOScale(0, 0.75f).OnComplete( () => tween = null );
+		while( tween != null ) yield return null;
+
+		// 破棄
+		Die();
 	}
 
 	/// <summary>

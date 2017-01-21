@@ -5,8 +5,8 @@ using System.Collections.Generic;
 /// <summary>
 /// Viveのコントローラからの入力を検出
 /// </summary>
-public class VRInputManager : MonoBehaviour {
-
+public class VRInputManager : MonoBehaviour 
+{
 	/// <summary>
 	/// 0=Left 1=Right
 	/// </summary>
