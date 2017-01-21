@@ -37,9 +37,8 @@ public class ObjController : MonoBehaviour {
             // 以下オブジェクトがクリックされた時の処理
             Destroy(Obj);
 
-//            GameObject director = GameObject.Find("GameDirector");
-//            director.GetComponent<GameDirector>().CountObj(Obj.name);
-//			GameDirector.instance.CountObj(obj.name);
+            GameObject director = GameObject.Find("GameDirector");
+            director.GetComponent<GameDirector>().CountObj(Obj.name);
 
         }
     }
