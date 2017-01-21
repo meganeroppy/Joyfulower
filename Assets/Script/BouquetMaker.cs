@@ -31,6 +31,13 @@ public class BouquetMaker : MonoBehaviour
 	Transform bouquetbase;
 
 	/// <summary>
+	/// 花束の紙部分
+	/// </summary>
+	[SerializeField]
+	GameObject bouquetPackagePrefab;
+	GameObject bouquetPackage;
+
+	/// <summary>
 	/// 花パーツ
 	/// </summary>
 	List<GameObject> parts;
@@ -39,6 +46,11 @@ public class BouquetMaker : MonoBehaviour
 	/// 現在掴んでいるまたは掴み候補のパーツ
 	/// </summary>
 	private BouquetPart heldPart;
+
+	/// <summary>
+	/// 完成時のエフェクト
+	/// </summary>
+	public GameObject effect;
 
 	/// <summary>
 	/// 花を追加できる距離メートル
@@ -61,6 +73,9 @@ public class BouquetMaker : MonoBehaviour
 		}
 	}
 
+	/// <summary>
+	/// 掴む候補を更新
+	/// </summary>
 	private void UpdateHoldTarget()
 	{
 		// 摑み候補
@@ -193,6 +208,15 @@ public class BouquetMaker : MonoBehaviour
 			b.Create( (BouquetPart.FlowerType)type );
 			b.transform.position = transform.TransformPoint ( Vector3.forward * 1f );
 		}
+
+		// 左手に花束の紙部分を持たせる
+		if( bouquetPackage == null)
+		{
+			bouquetPackage = Instantiate(bouquetPackage) as GameObject;
+			bouquetPackage.transform.SetParent( bouquetbase );
+			// TODO: 位置と回転を指定
+		}
+
 	}
 
 	/// <summary>
@@ -209,6 +233,11 @@ public class BouquetMaker : MonoBehaviour
 			Destroy(b.gameObject);
 		}
 		BouquetPart.bList.Clear ();
+
+		if( bouquetPackage != null )
+		{
+			Destroy( bouquetPackage );
+		}
 	}
 
 	/// <summary>
@@ -217,5 +246,11 @@ public class BouquetMaker : MonoBehaviour
 	public void CompleteBouquet()
 	{
 		Debug.Log("花束完成");
+
+		// エフェクト
+		GameObject g = GameObject.Instantiate(effect);
+		g.transform.SetParent( bouquetbase );
+		g.transform.localPosition = Vector3.zero;
+		g.transform.localRotation = Quaternion.identity;
 	}
 }
