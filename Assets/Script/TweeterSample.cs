@@ -22,8 +22,9 @@ public class TweeterSample : MonoBehaviour {
 		FlowerBase fb = FlowerBase.GetNearestFlower(transform.position);
 		if( fb != null )
 		{
-			int key = Random.Range (0, (int)FlowerBase.FlowerType.Count);
-			fb.AddEnergy((FlowerBase.FlowerType)key);
+			var key = Random.Range (0, (int)FlowerBase.FlowerType.Count);
+			var energy = new FlowerBase.FlowerEnergy((FlowerBase.FlowerType)key);
+			StartCoroutine( fb.AddEnergy(energy) );
 		}
 	}
 }

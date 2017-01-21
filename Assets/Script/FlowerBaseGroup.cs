@@ -8,32 +8,17 @@ public class FlowerBaseGroup : MonoBehaviour {
 	private List<FlowerBase> child;
 
 	/// <summary>
-	/// デバッグ用
-	/// </summary>
-	void SetAllFlower()
-	{
-		child.ForEach( f => 
-		{
-			f.Bloom();
-		} );
-	}
-
-	/// <summary>
 	/// ランダム位置に花を一輪咲かせる
 	/// </summary>
 	void SetRandomFlower(FlowerBase.FlowerType flowerType)
 	{
 		int idx = Random.Range(0, child.Count);
-		child[idx].AddEnergy(flowerType);
-	}
-
-	/// <summary>
-	/// ランダム位置にランダム種類の花を一輪咲かせる
-	/// </summary>
-	void SetRandomFlower()
-	{
-		int idx = Random.Range(0, child.Count);
-		child[idx].Bloom();
+		var fBase = child[idx];
+		if( !fBase.full )
+		{
+			var energy = new FlowerBase.FlowerEnergy(flowerType);
+			StartCoroutine( fBase.AddEnergy(energy) );
+		}
 	}
 		
 	/// <summary>
@@ -54,16 +39,5 @@ public class FlowerBaseGroup : MonoBehaviour {
 		//var date = info.date;
 
 		SetRandomFlower(type);
-	}
-
-	/// <summary>
-	/// デバッグ用
-	/// </summary>
-	void GetInput()
-	{
-		if( Input.GetKeyDown(KeyCode.B) )
-		{
-			SetRandomFlower();
-		}
 	}
 }
