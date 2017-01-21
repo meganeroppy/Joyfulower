@@ -66,3 +66,5 @@
 /Users/MeganeRoppy/Joyfulower/Temp/bin/Debug/Unity.CecilTools.dll
 /Users/MeganeRoppy/Joyfulower/Temp/bin/Debug/Mono.Cecil.Pdb.dll
 /Users/MeganeRoppy/Joyfulower/Temp/bin/Debug/Mono.Cecil.Mdb.dll
+/Users/MeganeRoppy/Joyfulower/Temp/bin/Debug/DOTweenEditor.dll
+/Users/MeganeRoppy/Joyfulower/Temp/bin/Debug/DOTween.dll
