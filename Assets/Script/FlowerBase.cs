@@ -235,7 +235,10 @@ public class FlowerBase : MonoBehaviour {
 			model = GameObject.Instantiate<GameObject>(modelPrefab[(int)currentFlowerType]);
 			model.transform.SetParent(modelBase);
 			model.transform.localPosition = Vector3.zero;
-			model.transform.localScale = Vector3.zero;	
+			model.transform.localScale = Vector3.zero;
+
+			// 名前セット
+			model.name = "Flower_" + (int)currentFlowerType;
 		}
 
 		// 増加演出順番待ち数を増加
