@@ -95,6 +95,9 @@ public class FlowerBase : MonoBehaviour {
 	[SerializeField]
 	private Image gauge;
 
+	[SerializeField]
+	private List<Sprite> gaugeSprite;
+
 	/// <summary>
 	/// 花の寿命
 	/// </summary>
@@ -129,7 +132,6 @@ public class FlowerBase : MonoBehaviour {
 	void Update()
 	{
 		UpdateLifeTimer();
-
 	}
 
 	/// <summary>
@@ -213,13 +215,30 @@ public class FlowerBase : MonoBehaviour {
 	/// </summary>
 	public IEnumerator AddEnergy( FlowerEnergy energy )
 	{ 
-		// すでに咲く条件を満たしていたらなにもしない
+		// 咲いていたらなにもしない
 		if( energyList.Count >= energyToBloom )
 		{
  			yield break;
 		}
 
+		// エナジー追加
 		energyList.Add(energy);
+
+		// 咲きフラグ
+		var bloomFlag = energyList.Count >= energyToBloom;
+		if( bloomFlag )
+		{
+			// 現在の花タイプをセット
+			currentFlowerType = GetMostContainedType();
+
+			// 花モデルを生成
+			model = GameObject.Instantiate<GameObject>(modelPrefab[(int)currentFlowerType]);
+			model.transform.SetParent(modelBase);
+			model.transform.localPosition = Vector3.zero;
+			model.transform.localScale = Vector3.zero;	
+		}
+
+		// 増加演出順番待ち数を増加
 		expWaitCount++;
 
 		Debug.Log( "[ " + fList.IndexOf(this).ToString() + " ]"  + "番目の花ポイントに [ " + energy.ToString() + " ] を加算 現在 ( " + energyList.Count.ToString() + " / " + energyToBloom.ToString() + " )"  );
@@ -238,17 +257,17 @@ public class FlowerBase : MonoBehaviour {
 		
 		while(tween != null) yield return null;
 
-		if( energyList.Count >= energyToBloom && expWaitCount < 1)
+		// 咲きフラグかつ増加演出順番まちがなくなったら花生成演出
+		if( bloomFlag && expWaitCount < 1)
 		{
 			// 咲くのに必要なエナジーがたまったら花生成演出
-			StartCoroutine( Bloom( GetMostContainedType() ) );
+			StartCoroutine( Bloom() );
 		}
 	}
 
 	/// <summary>
 	/// 最も多く含有しているエナジータイプを調べる
 	/// </summary>
-	/// <returns>The ingredient.</returns>
 	private FlowerType GetMostContainedType()
 	{
 		var counter = new List<int>();
@@ -305,49 +324,24 @@ public class FlowerBase : MonoBehaviour {
 
 
 	/// <summary>
-	/// 花をセット
+	/// 花生成演出
 	/// </summary>
-	private IEnumerator Bloom(FlowerType type)
+	private IEnumerator Bloom()
 	{		
-		if( model != null )
-		{
-			Debug.Log("生成済み");
-			yield break;
-		}
-
-		// 花モデルをセット
-		int idx = (int)type;
-		if(idx >= (int)FlowerType.Count){
-			Debug.LogError("花タイプが無効");
-			yield break;
-		}
-
-		if( tween != null )
-		{
-			yield break;
-		}
+		// ゲージスプライト差し替え
+		gauge.sprite = gaugeSprite[1];
 
 		// ゲージアニメーション
 		tween = gauge.transform.DOScale(Vector3.one * 0.35f, 0.25f).OnComplete( () => tween = null );
 		while( tween != null ) yield return null;
-
 		var canvas = gauge.transform.parent;
 		tween = canvas.DOLocalMoveY( 0, 0.75f ).SetEase(Ease.InBack).SetDelay(0.25f).OnComplete( () => tween = null );		
 		while( tween != null ) yield return null;
 
-		// 非表示
+		// ゲージ非表示
 		gauge.enabled = false;
-
-		if( model != null )
-		{
-			yield break;
-		}
-
-		model = GameObject.Instantiate<GameObject>(modelPrefab[idx]);
-		model.transform.SetParent(modelBase);
-		model.transform.localPosition = Vector3.zero;
-		model.transform.localScale = Vector3.zero;
-		// 花が生成アニメ
+			
+		// 花が生成されるアニメ
 		model.transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutBack);
 
 		// パーティクルをセット
@@ -365,20 +359,7 @@ public class FlowerBase : MonoBehaviour {
 		timer = lifeTime;
 
 		energyList.Clear();
-
-		// 現在の花タイプをセット
-		currentFlowerType = type;
-	}
-
-	/// <summary>
-	/// 花をセット 種類はランダム
-	/// デバッグ用
-	/// </summary>
-	public void Bloom()
-	{
-		FlowerType seed = (FlowerType)Random.Range(0, (int)FlowerType.Count);
-		StartCoroutine( Bloom(seed) );
-	}
+	}		
 		
 	/// <summary>
 	/// 花のモデルとパーティクルを削除
@@ -406,6 +387,8 @@ public class FlowerBase : MonoBehaviour {
 		gauge.enabled = true;
 		gauge.fillAmount = 0;
 		gauge.transform.localScale = Vector3.one;
+		gauge.sprite = gaugeSprite[0];
+
 	}
 
 	/// <summary>
