@@ -3,9 +3,9 @@ using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
-public class GameDirector : MonoBehaviour {
+public class GameDirector_ : MonoBehaviour {
 
-	public static GameDirector instance;
+	public static GameDirector_ instance;
 
     // (1)何を(2)どれだけ持っているか、を把握するためのList
     //private List<string> name_List = new List<string>(); //持っている種類リスト
