@@ -104,6 +104,11 @@ public class FlowerBase : MonoBehaviour {
 	public static List<FlowerBase> fList;
 
 	/// <summary>
+	/// ゲージ増加演出待ち数
+	/// </summary>
+	private int expWaitCount = 0;
+
+	/// <summary>
 	/// 実行中のTween
 	/// </summary>
 	Tween tween = null;
@@ -196,25 +201,25 @@ public class FlowerBase : MonoBehaviour {
 		}
 
 		energyList.Add(energy);
+		expWaitCount++;
 
 		Debug.Log( "[ " + fList.IndexOf(this).ToString() + " ]"  + "番目の花ポイントに [ " + energy.ToString() + " ] を加算 現在 ( " + energyList.Count.ToString() + " / " + energyToBloom.ToString() + " )"  );
 
 		// ゲージ割合更新
 		var rate = (float)energyList.Count / energyToBloom;
 
-//		// もとより少ないときは一旦0
-//		if( rate < gauge.fillAmount )
-//		{
-//			gauge.fillAmount = 0;
-//		}
-
 		while(tween != null) yield return null;
 
 		// ゲージ増加演出
-		tween = DOTween.To( () => gauge.fillAmount, v => gauge.fillAmount = v, rate, 0.5f).OnComplete( () => { tween = null;} );
+		tween = DOTween.To( () => gauge.fillAmount, v => gauge.fillAmount = v, rate, 0.5f).OnComplete( () =>
+		{
+			tween = null;
+			expWaitCount--;
+		} );
+		
 		while(tween != null) yield return null;
 
-		if( energyList.Count >= energyToBloom )
+		if( energyList.Count >= energyToBloom && expWaitCount < 1)
 		{
 			// 咲くのに必要なエナジーがたまったら花生成演出
 			StartCoroutine( Bloom( GetMostContainedType() ) );
@@ -283,7 +288,6 @@ public class FlowerBase : MonoBehaviour {
 	/// <summary>
 	/// 花をセット
 	/// </summary>
-	/// <param name="type">Type.</param>
 	private IEnumerator Bloom(FlowerType type)
 	{		
 		if( model != null )
@@ -305,8 +309,11 @@ public class FlowerBase : MonoBehaviour {
 		}
 
 		// ゲージアニメーション
+		tween = gauge.transform.DOScale(Vector3.one * 0.35f, 0.25f).OnComplete( () => tween = null );
+		while( tween != null ) yield return null;
+
 		var canvas = gauge.transform.parent;
-		tween = canvas.DOLocalMoveY( 0, 0.75f ).SetEase(Ease.InBack).OnComplete( () => tween = null );		
+		tween = canvas.DOLocalMoveY( 0, 0.75f ).SetEase(Ease.InBack).SetDelay(0.25f).OnComplete( () => tween = null );		
 		while( tween != null ) yield return null;
 
 		// 非表示
@@ -320,7 +327,9 @@ public class FlowerBase : MonoBehaviour {
 		model = GameObject.Instantiate<GameObject>(modelPrefab[idx]);
 		model.transform.SetParent(modelBase);
 		model.transform.localPosition = Vector3.zero;
-		model.transform.localScale = Vector3.one;
+		model.transform.localScale = Vector3.zero;
+		// 花が生成アニメ
+		model.transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutBack);
 
 		// パーティクルをセット
 		particle = GameObject.Instantiate<ParticleSystem>(particlePrefab);
@@ -377,6 +386,7 @@ public class FlowerBase : MonoBehaviour {
 		canvas.transform.localPosition = Vector3.up * 8;
 		gauge.enabled = true;
 		gauge.fillAmount = 0;
+		gauge.transform.localScale = Vector3.one;
 	}
 
 	/// <summary>
