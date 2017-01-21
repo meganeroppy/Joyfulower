@@ -113,10 +113,10 @@ public class VRInputManager : MonoBehaviour
 			if( hand != null )
 			{			
 				if (hand.GetTouchDown(SteamVR_Controller.ButtonMask.Trigger) || Input.GetKeyDown(KeyCode.A)) {
-					OnPressTrigger((HandType)i,  false);
+					OnPressTrigger((HandType)i, true);
 				}
 				if (hand.GetPressDown(SteamVR_Controller.ButtonMask.Trigger)) {
-					OnPressTrigger((HandType)i, true);
+					OnPressTrigger((HandType)i, false);
 				}
 				if ( hand.GetPressUp(SteamVR_Controller.ButtonMask.Trigger) )
 				{
