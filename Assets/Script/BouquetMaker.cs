@@ -213,7 +213,9 @@ public class BouquetMaker : MonoBehaviour
 		if( bouquetPackage == null)
 		{
 			bouquetPackage = Instantiate(bouquetPackagePrefab) as GameObject;
-			bouquetPackage.transform.SetParent( bouquetbase );
+			bouquetPackage.transform.SetParent( bouquetbase, false );
+//			bouquetPackage.transform.localPosition = Vector3.zero;
+
 			// TODO: 位置と回転を指定
 		}
 

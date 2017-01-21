@@ -244,7 +244,7 @@ public class FlowerBase : MonoBehaviour {
 		// 増加演出順番待ち数を増加
 		expWaitCount++;
 
-		Debug.Log( "[ " + fList.IndexOf(this).ToString() + " ]"  + "番目の花ポイントに [ " + energy.ToString() + " ] を加算 現在 ( " + energyList.Count.ToString() + " / " + energyToBloom.ToString() + " )"  );
+		Debug.Log( "[ " + fList.IndexOf(this).ToString() + " ]"  + "番目の花ポイントに [ " + energy.type.ToString() + " ] を加算 現在 ( " + energyList.Count.ToString() + " / " + energyToBloom.ToString() + " )"  );
 
 		// ゲージ割合更新
 		var rate = (float)energyList.Count / energyToBloom;
