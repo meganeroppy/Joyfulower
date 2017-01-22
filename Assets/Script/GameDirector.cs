@@ -58,7 +58,14 @@ public class GameDirector : MonoBehaviour
 	{
 		instance = this;
 
-        // Listに初期値を設定
+		StartCoroutine( StartLoad() );
+    }
+
+	IEnumerator StartLoad()
+	{
+		while( SceneManager.instance == null ) yield return null;
+
+		// Listに初期値を設定
 		/*
 		var item = new SceneManager.FlowerItem();
 		item.name = "tama";
@@ -75,7 +82,8 @@ public class GameDirector : MonoBehaviour
 		item.count = 1;
 		SceneManager.instance.fList.Add( item );
 		*/
-        //UIを描画
-        SetUI();
-    }
+
+
+		SetUI();
+	}
 }
