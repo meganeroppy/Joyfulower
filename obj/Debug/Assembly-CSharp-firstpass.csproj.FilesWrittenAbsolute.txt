@@ -33,3 +33,6 @@
 /Users/MeganeRoppy/Joyfulower/Temp/bin/Debug/Mono.Cecil.Pdb.dll
 /Users/MeganeRoppy/Joyfulower/Temp/bin/Debug/Mono.Cecil.Mdb.dll
 /Users/MeganeRoppy/Joyfulower/Temp/bin/Debug/DOTween.dll
+/Users/MeganeRoppy/Joyfulower/Temp/bin/Debug/DOTween43.dll
+/Users/MeganeRoppy/Joyfulower/Temp/bin/Debug/DOTween46.dll
+/Users/MeganeRoppy/Joyfulower/Temp/bin/Debug/DOTween50.dll
