@@ -238,7 +238,7 @@ public class FlowerBase : MonoBehaviour {
 			model.transform.localScale = Vector3.zero;
 
 			// 名前セット
-			model.name = "Flower_" + (int)currentFlowerType;
+			model.name = "Flower_0" + ((int)currentFlowerType+1).ToString();
 		}
 
 		// 増加演出順番待ち数を増加
