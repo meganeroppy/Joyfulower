@@ -7,6 +7,16 @@ using System.Collections.Generic;
 /// </summary>
 public class BouquetMaker : MonoBehaviour 
 {
+	enum TriggerState{
+		Released,
+		Pressed,
+	};
+
+	/// <summary>
+	/// 現在のトリガー状態
+	/// </summary>
+	TriggerState currentTriggerState;
+
 	/// <summary>
 	/// 実体
 	/// </summary>
@@ -31,6 +41,13 @@ public class BouquetMaker : MonoBehaviour
 	Transform bouquetbase;
 
 	/// <summary>
+	/// 花束の紙部分
+	/// </summary>
+	[SerializeField]
+	GameObject bouquetPackagePrefab;
+	GameObject bouquetPackage;
+
+	/// <summary>
 	/// 花パーツ
 	/// </summary>
 	List<GameObject> parts;
@@ -41,6 +58,11 @@ public class BouquetMaker : MonoBehaviour
 	private BouquetPart heldPart;
 
 	/// <summary>
+	/// 完成時のエフェクト
+	/// </summary>
+	public GameObject effect;
+
+	/// <summary>
 	/// 花を追加できる距離メートル
 	/// </summary>
 	public float validRange = 1f;
@@ -49,6 +71,8 @@ public class BouquetMaker : MonoBehaviour
 	void Start () 
 	{
 		instance = this;
+
+		currentTriggerState = TriggerState.Released;
 	}
 	
 	// Update is called once per frame
@@ -61,6 +85,9 @@ public class BouquetMaker : MonoBehaviour
 		}
 	}
 
+	/// <summary>
+	/// 掴む候補を更新
+	/// </summary>
 	private void UpdateHoldTarget()
 	{
 		// 摑み候補
@@ -121,6 +148,12 @@ public class BouquetMaker : MonoBehaviour
 	/// </summary>
 	public void TryHold()
 	{
+		if (currentTriggerState.Equals (TriggerState.Pressed))
+		{
+			return;
+		}
+		currentTriggerState = TriggerState.Pressed;
+
 		if( hand == null )
 		{
 			Debug.LogError("右手オブジェクトが未定義");
@@ -133,6 +166,7 @@ public class BouquetMaker : MonoBehaviour
 			return;
 		}
 
+		// 	掴み候補の親オブジェクトが自分の手の時
 		if( heldPart.transform.parent != null && heldPart.transform.parent.Equals( hand ) )
 		{
 			Debug.Log("既に掴んでいるものがある");
@@ -148,6 +182,8 @@ public class BouquetMaker : MonoBehaviour
 	/// </summary>
 	public void Release()
 	{
+		currentTriggerState = TriggerState.Released;
+
 		if( hand == null )
 		{
 			Debug.LogError("右手オブジェクトが未定義");
@@ -193,6 +229,14 @@ public class BouquetMaker : MonoBehaviour
 			b.Create( (BouquetPart.FlowerType)type );
 			b.transform.position = transform.TransformPoint ( Vector3.forward * 1f );
 		}
+
+		// 左手に花束の紙部分を持たせる
+		if( bouquetPackage == null)
+		{
+			bouquetPackage = Instantiate(bouquetPackagePrefab) as GameObject;
+			bouquetPackage.transform.SetParent( bouquetbase, false );
+		}
+
 	}
 
 	/// <summary>
@@ -209,6 +253,12 @@ public class BouquetMaker : MonoBehaviour
 			Destroy(b.gameObject);
 		}
 		BouquetPart.bList.Clear ();
+
+		// 花束の紙を削除
+		if( bouquetPackage != null )
+		{
+			Destroy( bouquetPackage );
+		}
 	}
 
 	/// <summary>
@@ -217,5 +267,11 @@ public class BouquetMaker : MonoBehaviour
 	public void CompleteBouquet()
 	{
 		Debug.Log("花束完成");
+
+		// エフェクト
+		GameObject g = GameObject.Instantiate(effect);
+		g.transform.SetParent( bouquetbase );
+		g.transform.localPosition = Vector3.zero;
+		g.transform.localRotation = Quaternion.identity;
 	}
 }
