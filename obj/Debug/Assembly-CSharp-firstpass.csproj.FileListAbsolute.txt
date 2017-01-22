@@ -40,3 +40,5 @@ C:\Users\miken\Documents\Joyfulower\Temp\bin\Debug\UnityEngine.Networking.xml
 C:\Users\miken\Documents\Joyfulower\obj\Debug\Assembly-CSharp-firstpass.csprojResolveAssemblyReference.cache
 C:\Users\miken\Documents\Joyfulower\obj\Debug\Assembly-CSharp-firstpass.dll
 C:\Users\miken\Documents\Joyfulower\obj\Debug\Assembly-CSharp-firstpass.pdb
+C:\Users\miken\Documents\Joyfulower\Temp\bin\Debug\DOTween.dll
+C:\Users\miken\Documents\Joyfulower\Temp\bin\Debug\DOTween.xml
