@@ -238,13 +238,13 @@ public class FlowerBase : MonoBehaviour {
 			model.transform.localScale = Vector3.zero;
 
 			// 名前セット
-			model.name = "Flower_" + (int)currentFlowerType;
+			model.name = "Flower_0" + ((int)currentFlowerType+1).ToString();
 		}
 
 		// 増加演出順番待ち数を増加
 		expWaitCount++;
 
-		Debug.Log( "[ " + fList.IndexOf(this).ToString() + " ]"  + "番目の花ポイントに [ " + energy.ToString() + " ] を加算 現在 ( " + energyList.Count.ToString() + " / " + energyToBloom.ToString() + " )"  );
+		Debug.Log( "[ " + fList.IndexOf(this).ToString() + " ]"  + "番目の花ポイントに [ " + energy.type.ToString() + " ] を加算 現在 ( " + energyList.Count.ToString() + " / " + energyToBloom.ToString() + " )"  );
 
 		// ゲージ割合更新
 		var rate = (float)energyList.Count / energyToBloom;
