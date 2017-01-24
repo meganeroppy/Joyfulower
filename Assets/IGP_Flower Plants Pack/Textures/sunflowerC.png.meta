@@ -1,5 +1,7 @@
 fileFormatVersion: 2
-guid: 75ee2e33937979f42a0770af26dcc69d
+guid: 27b24f0f6676d46f398a2be14c52cb8b
+timeCreated: 1485190411
+licenseType: Free
 TextureImporter:
   fileIDToRecycleName: {}
   serializedVersion: 2
@@ -43,9 +45,9 @@ TextureImporter:
   spritePivot: {x: 0.5, y: 0.5}
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spritePixelsToUnits: 100
-  alphaIsTransparency: 0
+  alphaIsTransparency: 1
   spriteTessellationDetail: -1
-  textureType: 0
+  textureType: -1
   buildTargetSettings: []
   spriteSheet:
     serializedVersion: 2
