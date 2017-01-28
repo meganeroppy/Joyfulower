@@ -1,0 +1,13 @@
+newmtl ilrOccSampler1SG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 0.00
+newmtl lambert3SG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 0.19 0.19 0.19
+map_Kd roppongi_01_A.jpg
+Ni 1.00
