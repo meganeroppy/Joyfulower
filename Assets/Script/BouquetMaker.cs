@@ -67,6 +67,21 @@ public class BouquetMaker : MonoBehaviour
 	/// </summary>
 	public float validRange = 1f;
 
+	[SerializeField]
+	private AudioClip bouquetComp_se;
+
+	[SerializeField]
+	private AudioClip bouquetAttach_se;
+
+	[SerializeField]
+	private AudioClip fetchFlower_se;
+
+	[SerializeField]
+	private AudioClip makeBouquetParts_se;
+
+	[SerializeField]
+	private AudioClip switchBouquetMode_se;
+
 	// Use this for initialization
 	void Start () 
 	{
@@ -207,6 +222,9 @@ public class BouquetMaker : MonoBehaviour
 		if( distance <= validRange )
 		{
 			heldPart.Attatch( bouquetbase );
+
+			// se
+			bouquetbase.GetComponent<AudioSource>().PlayOneShot( bouquetAttach_se );
 		}
 		else
 		{
@@ -273,5 +291,8 @@ public class BouquetMaker : MonoBehaviour
 		g.transform.SetParent( bouquetbase );
 		g.transform.localPosition = Vector3.zero;
 		g.transform.localRotation = Quaternion.identity;
+
+		// se 
+		bouquetbase.GetComponent<AudioSource>().PlayOneShot(bouquetComp_se);
 	}
 }
