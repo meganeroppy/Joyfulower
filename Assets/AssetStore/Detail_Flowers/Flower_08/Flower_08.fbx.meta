@@ -3,7 +3,14 @@ guid: 4a1ac7a3cd7dc93448838794422f0d6a
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
+    100000: Flower_08
+    100002: //RootNode
+    400000: Flower_08
+    400002: //RootNode
+    2300000: Flower_08
+    3300000: Flower_08
     4300000: Flower_08
+    11100000: //RootNode
   materials:
     importMaterials: 1
     materialName: 3
