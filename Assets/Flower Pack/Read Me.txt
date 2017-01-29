@@ -1,9 +1,0 @@
-"Flower Pack"
-
-This package made in 3dx max.Most of the textures are come 
-from CG texture.Textures are high resulation about 2048X2048,
-1024X1024 and 512X512.All models are very low polys.
-
-This packae is suitable for terrain painting.so enjoy this package.
-
-If you have any question you can contact me :alphabitt78@gmail.com

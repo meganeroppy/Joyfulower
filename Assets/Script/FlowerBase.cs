@@ -111,6 +111,20 @@ public class FlowerBase : MonoBehaviour {
 	/// </summary>
 	private int expWaitCount = 0;
 
+	private AudioSource myAudio;
+
+	[SerializeField]
+	private AudioClip bloom_se;
+
+	[SerializeField]
+	private AudioClip wether_se;
+
+	[SerializeField]
+	private AudioClip picked_se;
+
+	[SerializeField]
+	private AudioClip gainGauge_se;
+
 	/// <summary>
 	/// 実行中のTween
 	/// </summary>
@@ -118,6 +132,8 @@ public class FlowerBase : MonoBehaviour {
 
 	void Start()
 	{
+		myAudio = GetComponent<AudioSource>();
+
 		if( fList == null )
 		{
 			fList = new List<FlowerBase>();
@@ -164,6 +180,9 @@ public class FlowerBase : MonoBehaviour {
 		// 徐々に小さくなる
 		tween = model.transform.DOScale(0, 0.75f).OnComplete( () => tween = null );
 		while( tween != null ) yield return null;
+
+		// SE
+		myAudio.PlayOneShot(wether_se);
 
 		// 破棄
 		Die();
@@ -223,6 +242,9 @@ public class FlowerBase : MonoBehaviour {
 
 		// エナジー追加
 		energyList.Add(energy);
+
+		// se 
+		myAudio.PlayOneShot( gainGauge_se );
 
 		// 咲きフラグ
 		var bloomFlag = energyList.Count >= energyToBloom;
@@ -359,6 +381,9 @@ public class FlowerBase : MonoBehaviour {
 		g.transform.localPosition = Vector3.forward * posY;
 		g.transform.localRotation = Quaternion.identity;
 
+		// SE
+		myAudio.PlayOneShot(bloom_se);
+
 		timer = lifeTime;
 
 		energyList.Clear();
@@ -429,6 +454,9 @@ public class FlowerBase : MonoBehaviour {
 
 			// UI更新
 			GameDirector.instance.SetUI();
+
+			//se 
+			myAudio.PlayOneShot(picked_se);
 
 			// モデルを削除
 			Die();

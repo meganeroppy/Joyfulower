@@ -1,5 +1,5 @@
 var target : Transform;
-var distance = 55.0;
+var distance = 10.0;
 
 var xSpeed = 250.0;
 var ySpeed = 120.0;
