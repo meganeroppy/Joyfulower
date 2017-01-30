@@ -240,7 +240,7 @@ public class BouquetMaker : MonoBehaviour
 		Debug.Log("花束関連オブジェクト生成");
 
 		// 所持している花を並べる
-		for( int i=0 ; i < SceneManager.instance.fList ; i++ )
+		for( int i=0 ; i < SceneManager.instance.fList.Count ; i++ )
 		{
 			var flower = SceneManager.instance.fList[i];
 			for( int j = 0 ; j < flower.count ; j++ )
