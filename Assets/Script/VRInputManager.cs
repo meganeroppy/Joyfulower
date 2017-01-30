@@ -144,11 +144,9 @@ public class VRInputManager : MonoBehaviour
 			}
 		}
 
-		if ((padCnt >= 2 && gripCnt >= 2) || Input.GetKeyDown (KeyCode.D)) {
+		if ( (padCnt >= 2 && gripCnt >= 2) || Input.GetKeyDown (KeyCode.D) ) {
 			Debug.Log (" DEBUG COMMAND ");
 			flower_bg.SetActive (!flower_bg.activeInHierarchy);
-		} else {
-			Debug.Log ( string.Format("padCnt[{0}] gripCnt[{1}] ", padCnt, gripCnt) );
 		}
 	}
 
