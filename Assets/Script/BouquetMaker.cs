@@ -239,14 +239,22 @@ public class BouquetMaker : MonoBehaviour
 	{
 		Debug.Log("花束関連オブジェクト生成");
 
-		// TODO: 所持している花の種類分並べる
-		for( int i=0 ; i < 10 ; i++ )
+		// 所持している花を並べる
+		for( int i=0 ; i < SceneManager.instance.fList ; i++ )
 		{
-			var b = Instantiate( bouquetPartPrefab ).GetComponent<BouquetPart>();
-			var type = Random.Range(0, (int)BouquetPart.FlowerType.Count);
-			b.Create( (BouquetPart.FlowerType)type );
-			b.transform.position = transform.TransformPoint ( Vector3.forward * 1f );
+			var flower = SceneManager.instance.fList[i];
+			for( int j = 0 ; j < flower.count ; j++ )
+			{
+				var b = Instantiate( bouquetPartPrefab ).GetComponent<BouquetPart>();
+				var type = flower.flowerType;
+				b.Create( type );
+
+				// オフセットを指定
+				b.transform.position = transform.TransformPoint ( Vector3.forward * 1f );
+			}
 		}
+
+		// TODO: 演出
 
 		// 左手に花束の紙部分を持たせる
 		if( bouquetPackage == null)
