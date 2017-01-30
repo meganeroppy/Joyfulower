@@ -108,6 +108,11 @@ public class BouquetMaker : MonoBehaviour
 		// 摑み候補
 		BouquetPart tempHoldTarget = null;
 
+		if (BouquetPart.bList == null) 
+		{
+			BouquetPart.bList = new List<BouquetPart> ();
+		}
+
 		// 摑み対象を判別
 		for( int i=0 ; i < BouquetPart.bList.Count ; i++ )
 		{
