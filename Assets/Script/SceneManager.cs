@@ -64,6 +64,14 @@ public class SceneManager : MonoBehaviour
 
 	public List<FlowerItem> fList;
 
+	/// <summary>
+	/// データベースからの値の取得をシュミュレートするか？
+	/// ( = 実際にデータの取得は行わなくする)
+	/// </summary>
+	[SerializeField]
+	private bool simulateGetFromDatabase = false;
+
+
 	// Use this for initialization
 	void Start () 
 	{
@@ -79,7 +87,7 @@ public class SceneManager : MonoBehaviour
 		}
 
 		StartCoroutine( WaitAndGetTweetInfo() );
-	}
+	}		
 
 	/// <summary>
 	/// 一定間隔でツイート情報の更新を行う
@@ -89,13 +97,32 @@ public class SceneManager : MonoBehaviour
 	{
 		Debug.Log("ツイート情報取得中");
 
-		yield return StartCoroutine( api.GetTweetInfo( res => 
+		if( simulateGetFromDatabase )
 		{
-			Debug.Log("APIの返却値で花の生成を行います");
-			
-			
+			// データベースからの取得をシミュレート
+			Debug.Log("APIの返却値での花生成をシミュレートします");
+			var twtCnt = Random.Range(3, 15);
+
+			var alp = "ABCDEF";
+
+			for( int i=0 ; i < twtCnt ; i++ )
+			{
+				var info = new api.GetTweetInfoResponseParameter.TweetInfo();
+				var idx = Random.Range(0, alp.Length);
+				info.felling = alp[idx].ToString();
+				flowerBaseGroup.SetFlower( info );
+			}
+
+		}
+		else{
+			// 実際にデータベースからデータを取得する
+			yield return StartCoroutine( api.GetTweetInfo( res => 
+			{
+				Debug.Log("APIの返却値で花の生成を行います");
 				res.tweetInfoList.ForEach( v => { flowerBaseGroup.SetFlower( v ); });
-		} ) );
+			} ) );
+		}
+
 
 		// 一定時間待機
 		yield return new WaitForSeconds( update_interval );

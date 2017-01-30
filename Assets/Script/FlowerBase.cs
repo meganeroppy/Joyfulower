@@ -130,7 +130,7 @@ public class FlowerBase : MonoBehaviour {
 	/// </summary>
 	Tween tween = null;
 
-	void Start()
+	void Awake()
 	{
 		myAudio = GetComponent<AudioSource>();
 
