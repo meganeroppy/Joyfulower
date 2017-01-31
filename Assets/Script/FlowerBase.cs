@@ -367,6 +367,10 @@ public class FlowerBase : MonoBehaviour {
 		gauge.enabled = false;
 			
 		// 花が生成されるアニメ
+		if (model == null) {
+			Debug.LogError ("Bloomだがモデルがnull");
+			yield break;
+		}
 		model.transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutBack);
 
 		// パーティクルをセット
@@ -466,8 +470,6 @@ public class FlowerBase : MonoBehaviour {
 			g.transform.SetParent( particleBase );
 			g.transform.localPosition = Vector3.forward * posY;
 			g.transform.localRotation = Quaternion.identity;
-
 		}
 	}
-
 }
