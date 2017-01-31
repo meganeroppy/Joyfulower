@@ -39,6 +39,7 @@ public class BouquetPart : MonoBehaviour {
 		if( (int)type >= modelList.Count )
 		{
 			Debug.LogError( type.ToString() + "が未定義");
+			return;
 		}
 		
 		GameObject g = Instantiate( modelList[(int)type] );

@@ -12,13 +12,15 @@ public class FlowerBaseGroup : MonoBehaviour {
 	/// </summary>
 	void SetRandomFlower(FlowerBase.FlowerType flowerType)
 	{
-		int idx = Random.Range(0, child.Count);
-		var fBase = child[idx];
-		if( !fBase.full )
-		{
-			var energy = new FlowerBase.FlowerEnergy(flowerType);
-			StartCoroutine( fBase.AddEnergy(energy) );
-		}
+		int idx;
+		FlowerBase fBase;
+		do{
+			idx = Random.Range(0, child.Count);
+			fBase = child[idx];
+		}while( !fBase.gameObject.activeInHierarchy );
+
+		var energy = new FlowerBase.FlowerEnergy(flowerType);
+		StartCoroutine( fBase.AddEnergy(energy) );
 	}
 		
 	/// <summary>

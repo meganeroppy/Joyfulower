@@ -51,13 +51,6 @@ public class FlowerBase : MonoBehaviour {
 	/// </summary>
 	private const int energyToBloom = 6;
 
-	public bool full
-	{
-		get{
-			return energyList.Count >= energyToBloom;
-		}
-	}
-
 	/// <summary>
 	/// 花のモデルリスト
 	/// </summary>
@@ -237,6 +230,7 @@ public class FlowerBase : MonoBehaviour {
 		// 咲いていたらなにもしない
 		if( energyList.Count >= energyToBloom )
 		{
+			Debug.Log ( gameObject.name + "はエナジーが満タン");
  			yield break;
 		}
 
@@ -390,7 +384,7 @@ public class FlowerBase : MonoBehaviour {
 
 		timer = lifeTime;
 
-		energyList.Clear();
+	//	energyList.Clear();
 	}		
 		
 	/// <summary>
@@ -430,6 +424,10 @@ public class FlowerBase : MonoBehaviour {
 	{
 		if( model != null )
 		{
+			if (currentFlowerType.Equals (FlowerType.None)) {
+				return;
+			}
+
 			// UIに反映
 //			if (GameDirector.instance != null) {
 //				GameDirector.instance.CountObj (model.gameObject.name);
@@ -441,6 +439,7 @@ public class FlowerBase : MonoBehaviour {
 
 			if( fItem != null )
 			{
+				
 				// 入っていたらカウントを加算
 				fItem.count++;
 				Debug.Log( fItem.flowerType + "の数を更新[ " + fItem.count.ToString() + " ]"); 
