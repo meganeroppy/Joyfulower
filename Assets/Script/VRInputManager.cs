@@ -119,10 +119,10 @@ public class VRInputManager : MonoBehaviour
 			if( hand != null )
 			{			
 				if (hand.GetTouchDown(SteamVR_Controller.ButtonMask.Trigger) || Input.GetKeyDown(KeyCode.A)) {
-					OnPressTrigger((HandType)i, true);
+					OnPressTrigger( (HandType)i, true);
 				}
 				if (hand.GetPressDown(SteamVR_Controller.ButtonMask.Trigger)) {
-					OnPressTrigger((HandType)i, false);
+					OnPressTrigger( (HandType)i, false);
 				}
 				if ( hand.GetPressUp(SteamVR_Controller.ButtonMask.Trigger) )
 				{
@@ -131,7 +131,7 @@ public class VRInputManager : MonoBehaviour
 					
 				if( hand.GetPressDown(SteamVR_Controller.ButtonMask.Touchpad))
 				{
-					OnPressTouchPad((HandType)i);
+					OnPressTouchPad( (HandType)i);
 					padCnt++;
 				}
 
@@ -217,7 +217,8 @@ public class VRInputManager : MonoBehaviour
 	private void OnPressTouchPad( HandType type )
 	{
 		Debug.Log( ((HandType)type).ToString() + "のタッチパッドが押された" );
-		tweet.Tweet();
+		var handObj = handObjects [(int)type];
+		tweet.Tweet(handObj);
 	}
 
 	/// <summary>

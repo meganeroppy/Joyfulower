@@ -17,9 +17,14 @@ public class TweeterSample : MonoBehaviour {
 		}
 	}
 
-	public void Tweet()
+	public void Tweet(SteamVR_TrackedObject hand=null)
 	{
-		FlowerBase fb = FlowerBase.GetNearestFlower(transform.position);
+		if (hand != null) {
+			Debug.Log ( "自分の座標は" + transform.position.ToString() + "自分のローカル座標は" + transform.localPosition.ToString() + "  handの座標は" + hand.transform.position.ToString());
+		}
+
+		var selfPos = hand != null ? hand.transform.position : transform.position;
+		FlowerBase fb = FlowerBase.GetNearestFlower(selfPos);
 		if( fb != null )
 		{
 			var key = Random.Range (0, (int)FlowerBase.FlowerType.Count);

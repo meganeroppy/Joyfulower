@@ -136,11 +136,18 @@ public class FlowerBase : MonoBehaviour {
 		energyList = new List<FlowerEnergy>();
 
 		currentFlowerType = FlowerType.None;
+
+		// 最初はゲージが空
+		gauge.fillAmount = 0;
 	}
 
 	void Update()
 	{
 		UpdateLifeTimer();
+
+		if (expWaitCount >= 1 && !isExpGoing) {
+			StartCoroutine ( ShowGainExp() );
+		}
 	}
 
 	/// <summary>
@@ -238,14 +245,16 @@ public class FlowerBase : MonoBehaviour {
 		energyList.Add(energy);
 
 		// se 
-		myAudio.PlayOneShot( gainGauge_se );
+	//	myAudio.PlayOneShot( gainGauge_se );
 
+		// 現在の花タイプをセット
+		currentFlowerType = GetMostContainedType();
+		/*
 		// 咲きフラグ
 		var bloomFlag = energyList.Count >= energyToBloom;
 		if( bloomFlag )
 		{
-			// 現在の花タイプをセット
-			currentFlowerType = GetMostContainedType();
+
 
 			// 花モデルを生成
 			model = GameObject.Instantiate<GameObject>(modelPrefab[(int)currentFlowerType]);
@@ -255,13 +264,15 @@ public class FlowerBase : MonoBehaviour {
 
 			// 名前セット
 			model.name = "Flower_0" + ((int)currentFlowerType+1).ToString();
+
 		}
+		*/
 
 		// 増加演出順番待ち数を増加
 		expWaitCount++;
 
-		Debug.Log( "[ " + fList.IndexOf(this).ToString() + " ]"  + "番目の花ポイントに [ " + energy.ToString() + " ] を加算 現在 ( " + energyList.Count.ToString() + " / " + energyToBloom.ToString() + " )"  );
-
+		Debug.Log( "[ " + fList.IndexOf(this).ToString() + " ]"  + "番目の花ポイントに [ " + energy.type.ToString() + " ] を加算 現在 ( " + energyList.Count.ToString() + " / " + energyToBloom.ToString() + " )"  );
+		/*
 		// ゲージ割合更新
 		var rate = (float)energyList.Count / energyToBloom;
 
@@ -282,6 +293,59 @@ public class FlowerBase : MonoBehaviour {
 			// 咲くのに必要なエナジーがたまったら花生成演出
 			StartCoroutine( Bloom() );
 		}
+		*/
+	}
+		
+	bool isExpGoing = false;
+
+	IEnumerator ShowGainExp()
+	{
+		isExpGoing = true;
+
+
+		Debug.Log ("演出開始");
+		while (expWaitCount > 0) 
+		{
+			expWaitCount--;
+
+			// 増加後のゲージ割合更新
+			var rate = (float)(energyList.Count-expWaitCount) / energyToBloom;
+			Debug.Log ( rate.ToString() + "まで増加");
+			// 演出の最中だったら待つ
+			while(tween != null) yield return null;
+			// se 
+			myAudio.PlayOneShot( gainGauge_se );
+			// ゲージ増加演出
+			tween = DOTween.To( () => gauge.fillAmount, v => gauge.fillAmount = v, rate, 0.5f).OnComplete( () =>
+				{
+					tween = null;
+				} );
+			// 演出の最中だったら待つ
+			while(tween != null) yield return null;
+
+			// 咲きフラグ
+			if( rate >= 1 )
+			{
+				Debug.Log ("咲きます");
+				yield return StartCoroutine( Bloom() );
+
+
+			}
+		
+
+
+			// 咲きフラグかつ増加演出順番まちがなくなったら花生成演出
+		//	if( bloomFlag && expWaitCount < 1)
+		//	{
+				// 咲くのに必要なエナジーがたまったら花生成演出
+		//	}
+
+		}
+		Debug.Log ("演出終了");
+
+		isExpGoing = false;
+
+
 	}
 
 	/// <summary>
@@ -341,12 +405,22 @@ public class FlowerBase : MonoBehaviour {
 		}	
 	}
 
+	bool blooming = false;
 
 	/// <summary>
 	/// 花生成演出
 	/// </summary>
 	private IEnumerator Bloom()
 	{		
+		// 花モデルを生成
+		model = GameObject.Instantiate<GameObject>(modelPrefab[(int)currentFlowerType]);
+		model.transform.SetParent(modelBase);
+		model.transform.localPosition = Vector3.zero;
+		model.transform.localScale = Vector3.zero;
+
+		// 名前セット
+		model.name = "Flower_0" + ((int)currentFlowerType+1).ToString();
+
 		// ゲージスプライト差し替え
 		gauge.sprite = gaugeSprite[1];
 
@@ -361,10 +435,6 @@ public class FlowerBase : MonoBehaviour {
 		gauge.enabled = false;
 			
 		// 花が生成されるアニメ
-		if (model == null) {
-			Debug.LogError ("Bloomだがモデルがnull");
-			yield break;
-		}
 		model.transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutBack);
 
 		// パーティクルをセット
@@ -384,7 +454,7 @@ public class FlowerBase : MonoBehaviour {
 
 		timer = lifeTime;
 
-	//	energyList.Clear();
+		blooming = true;
 	}		
 		
 	/// <summary>
@@ -405,6 +475,8 @@ public class FlowerBase : MonoBehaviour {
 		// エナジーリスト初期化
 		energyList.Clear();
 
+		blooming = false;
+
 		currentFlowerType = FlowerType.None;
 
 		// ゲージを元に戻す
@@ -422,7 +494,7 @@ public class FlowerBase : MonoBehaviour {
 	/// </summary>
 	public void Pick()
 	{
-		if( model != null )
+		if( blooming )
 		{
 			if (currentFlowerType.Equals (FlowerType.None)) {
 				return;
