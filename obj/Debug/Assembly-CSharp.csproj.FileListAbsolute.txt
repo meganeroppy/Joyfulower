@@ -46,3 +46,9 @@ C:\Users\miken\Documents\Joyfulower\obj\Debug\Assembly-CSharp.dll
 C:\Users\miken\Documents\Joyfulower\obj\Debug\Assembly-CSharp.pdb
 C:\Users\miken\Documents\Joyfulower\Temp\bin\Debug\DOTween.dll
 C:\Users\miken\Documents\Joyfulower\Temp\bin\Debug\DOTween.xml
+C:\Users\miken\Documents\Joyfulower\Temp\bin\Debug\DOTween43.dll
+C:\Users\miken\Documents\Joyfulower\Temp\bin\Debug\DOTween46.dll
+C:\Users\miken\Documents\Joyfulower\Temp\bin\Debug\DOTween50.dll
+C:\Users\miken\Documents\Joyfulower\Temp\bin\Debug\DOTween43.xml
+C:\Users\miken\Documents\Joyfulower\Temp\bin\Debug\DOTween46.xml
+C:\Users\miken\Documents\Joyfulower\Temp\bin\Debug\DOTween50.xml

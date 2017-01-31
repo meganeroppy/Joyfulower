@@ -10,16 +10,6 @@ public class BouquetPart : MonoBehaviour {
 	public static List<BouquetPart> bList;
 
 	/// <summary>
-	/// 花の種類（仮）
-	/// </summary>
-	public enum FlowerType{
-		Red,
-		Green,
-		Blue,
-		Count,
-	};
-
-	/// <summary>
 	/// モデル候補
 	/// </summary>
 	[SerializeField]
@@ -44,7 +34,7 @@ public class BouquetPart : MonoBehaviour {
 	/// <summary>
 	/// 生成
 	/// </summary>
-	public void Create( FlowerType type )
+	public void Create( FlowerBase.FlowerType type )
 	{
 		if( (int)type >= modelList.Count )
 		{

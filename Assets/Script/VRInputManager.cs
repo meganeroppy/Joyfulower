@@ -43,6 +43,9 @@ public class VRInputManager : MonoBehaviour
 
 	private bool initialized = false;
 
+	[SerializeField]
+	GameObject flower_bg;
+
 	void Start()
 	{
 		StartCoroutine ( StartLoad() );	
@@ -107,6 +110,9 @@ public class VRInputManager : MonoBehaviour
 			return;	
 		}
 
+		var gripCnt = 0;
+		var padCnt = 0;
+
 		for( int i=0 ; i<handDevices.Count ; i++ )
 		{
 			var hand = handDevices[i];
@@ -126,13 +132,21 @@ public class VRInputManager : MonoBehaviour
 				if( hand.GetPressDown(SteamVR_Controller.ButtonMask.Touchpad))
 				{
 					OnPressTouchPad((HandType)i);
+					padCnt++;
 				}
 
 				if( hand.GetPressDown(SteamVR_Controller.ButtonMask.Grip))
 				{
 					OnPressGrip((HandType)i);
-				}		
-			}	
+					gripCnt++;
+				}
+
+			}
+		}
+
+		if ( (padCnt >= 2 && gripCnt >= 2) || Input.GetKeyDown (KeyCode.D) ) {
+			Debug.Log (" DEBUG COMMAND ");
+			flower_bg.SetActive (!flower_bg.activeInHierarchy);
 		}
 	}
 
