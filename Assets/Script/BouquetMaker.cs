@@ -312,5 +312,9 @@ public class BouquetMaker : MonoBehaviour
 
 		// se 
 		bouquetbase.GetComponent<AudioSource>().PlayOneShot(bouquetComp_se);
+		var now = System.DateTime.Now.ToString ();
+		now = now. Replace ("/", "").Replace (" ", "").Replace (":", "");
+
+		Application.CaptureScreenshot ( "JoyfulowerScreenShot" + now + ".png" );
 	}
 }
