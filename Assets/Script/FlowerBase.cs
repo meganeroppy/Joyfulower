@@ -97,6 +97,16 @@ public class FlowerBase : MonoBehaviour {
 	public float lifeTime = 60f;
 	private float timer = 0;
 
+	/// <summary>
+	/// 花が咲いているか？
+	/// </summary>
+	bool blooming = false;
+
+	/// <summary>
+	/// 演出の最中か？
+	/// </summary>
+	bool isExpGoing = false;
+
 	public static List<FlowerBase> fList;
 
 	/// <summary>
@@ -244,66 +254,21 @@ public class FlowerBase : MonoBehaviour {
 		// エナジー追加
 		energyList.Add(energy);
 
-		// se 
-	//	myAudio.PlayOneShot( gainGauge_se );
-
 		// 現在の花タイプをセット
 		currentFlowerType = GetMostContainedType();
-		/*
-		// 咲きフラグ
-		var bloomFlag = energyList.Count >= energyToBloom;
-		if( bloomFlag )
-		{
-
-
-			// 花モデルを生成
-			model = GameObject.Instantiate<GameObject>(modelPrefab[(int)currentFlowerType]);
-			model.transform.SetParent(modelBase);
-			model.transform.localPosition = Vector3.zero;
-			model.transform.localScale = Vector3.zero;
-
-			// 名前セット
-			model.name = "Flower_0" + ((int)currentFlowerType+1).ToString();
-
-		}
-		*/
 
 		// 増加演出順番待ち数を増加
 		expWaitCount++;
 
 		Debug.Log( "[ " + fList.IndexOf(this).ToString() + " ]"  + "番目の花ポイントに [ " + energy.type.ToString() + " ] を加算 現在 ( " + energyList.Count.ToString() + " / " + energyToBloom.ToString() + " )"  );
-		/*
-		// ゲージ割合更新
-		var rate = (float)energyList.Count / energyToBloom;
-
-		while(tween != null) yield return null;
-
-		// ゲージ増加演出
-		tween = DOTween.To( () => gauge.fillAmount, v => gauge.fillAmount = v, rate, 0.5f).OnComplete( () =>
-		{
-			tween = null;
-			expWaitCount--;
-		} );
-		
-		while(tween != null) yield return null;
-
-		// 咲きフラグかつ増加演出順番まちがなくなったら花生成演出
-		if( bloomFlag && expWaitCount < 1)
-		{
-			// 咲くのに必要なエナジーがたまったら花生成演出
-			StartCoroutine( Bloom() );
-		}
-		*/
 	}
-		
-	bool isExpGoing = false;
+
+
 
 	IEnumerator ShowGainExp()
 	{
 		isExpGoing = true;
 
-
-		Debug.Log ("演出開始");
 		while (expWaitCount > 0) 
 		{
 			expWaitCount--;
@@ -326,26 +291,11 @@ public class FlowerBase : MonoBehaviour {
 			// 咲きフラグ
 			if( rate >= 1 )
 			{
-				Debug.Log ("咲きます");
 				yield return StartCoroutine( Bloom() );
-
-
 			}
-		
-
-
-			// 咲きフラグかつ増加演出順番まちがなくなったら花生成演出
-		//	if( bloomFlag && expWaitCount < 1)
-		//	{
-				// 咲くのに必要なエナジーがたまったら花生成演出
-		//	}
-
 		}
-		Debug.Log ("演出終了");
 
 		isExpGoing = false;
-
-
 	}
 
 	/// <summary>
@@ -405,7 +355,6 @@ public class FlowerBase : MonoBehaviour {
 		}	
 	}
 
-	bool blooming = false;
 
 	/// <summary>
 	/// 花生成演出
@@ -455,7 +404,7 @@ public class FlowerBase : MonoBehaviour {
 		timer = lifeTime;
 
 		blooming = true;
-	}		
+	}
 		
 	/// <summary>
 	/// 花のモデルとパーティクルを削除
@@ -486,7 +435,6 @@ public class FlowerBase : MonoBehaviour {
 		gauge.fillAmount = 0;
 		gauge.transform.localScale = Vector3.one;
 		gauge.sprite = gaugeSprite[0];
-
 	}
 
 	/// <summary>
