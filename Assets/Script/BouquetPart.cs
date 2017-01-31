@@ -34,7 +34,7 @@ public class BouquetPart : MonoBehaviour {
 	/// <summary>
 	/// 生成
 	/// </summary>
-	public void Create( FlowerBase.FlowerType type )
+	public void Create( FlowerBase.FlowerType type, Vector3 position )
 	{
 		if( (int)type >= modelList.Count )
 		{
@@ -42,8 +42,10 @@ public class BouquetPart : MonoBehaviour {
 			return;
 		}
 		
-		GameObject g = Instantiate( modelList[(int)type] );
-		g.transform.SetParent( modelBase );
+		GameObject obj = Instantiate( modelList[(int)type] );
+		obj.transform.SetParent( modelBase );
+
+		transform.position = position;
 
 		// 初期位置をセット
 		originPos = transform.position;
@@ -83,6 +85,7 @@ public class BouquetPart : MonoBehaviour {
 	/// </summary>
 	public void Release()
 	{
+		transform.parent = null;
 		// エフェクト
 
 		//初期位置に戻る

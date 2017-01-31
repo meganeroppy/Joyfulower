@@ -259,10 +259,8 @@ public class BouquetMaker : MonoBehaviour
 			{
 				var b = Instantiate( bouquetPartPrefab ).GetComponent<BouquetPart>();
 				var type = flower.flowerType;
-				b.Create( type );
 
-				// オフセットを指定
-				b.transform.position = transform.TransformPoint ( Vector3.forward * 0.2f );
+				b.Create( type, transform.TransformPoint ( Vector3.forward * 0.2f ) );
 			}
 		}
 
