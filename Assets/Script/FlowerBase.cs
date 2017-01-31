@@ -263,8 +263,10 @@ public class FlowerBase : MonoBehaviour {
 		Debug.Log( "[ " + fList.IndexOf(this).ToString() + " ]"  + "番目の花ポイントに [ " + energy.type.ToString() + " ] を加算 現在 ( " + energyList.Count.ToString() + " / " + energyToBloom.ToString() + " )"  );
 	}
 
-
-
+	/// <summary>
+	/// ゲージ増加演出
+	/// </summary>
+	/// <returns>The gain exp.</returns>
 	IEnumerator ShowGainExp()
 	{
 		isExpGoing = true;
@@ -275,7 +277,6 @@ public class FlowerBase : MonoBehaviour {
 
 			// 増加後のゲージ割合更新
 			var rate = (float)(energyList.Count-expWaitCount) / energyToBloom;
-			Debug.Log ( rate.ToString() + "まで増加");
 			// 演出の最中だったら待つ
 			while(tween != null) yield return null;
 			// se 
