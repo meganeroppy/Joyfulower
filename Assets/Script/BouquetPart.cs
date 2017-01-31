@@ -71,14 +71,10 @@ public class BouquetPart : MonoBehaviour {
 	/// 花束に追加
 	/// </summary>
 	public void Attatch( Transform parent ){
-
-
-
 		// 花束にセット
 		transform.SetParent( parent );
 
 		Debug.Log (transform.name + "を花束にセット");
-
 		// エフェクト
 	}
 
@@ -87,7 +83,6 @@ public class BouquetPart : MonoBehaviour {
 	/// </summary>
 	public void Release()
 	{
-		transform.parent = null;
 		// エフェクト
 
 		//初期位置に戻る

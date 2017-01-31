@@ -158,7 +158,8 @@ public class VRInputManager : MonoBehaviour
 	private void OnPressTrigger( HandType handType, bool half )
 	{
 		if( half ){
-			Debug.Log( ((HandType)handType).ToString() + "のトリガーがちょっと引かれた" );
+			Debug.Log( ((HandType)handType).ToString() + "のトリガーがちょっと引かれた ハーフ入力は無視" );
+			return;
 		}else{
 			Debug.Log( ((HandType)handType).ToString() + "のトリガーががっつり引かれた" );
 		}

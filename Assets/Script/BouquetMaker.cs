@@ -53,9 +53,14 @@ public class BouquetMaker : MonoBehaviour
 	List<GameObject> parts;
 
 	/// <summary>
-	/// 現在掴んでいるまたは掴み候補のパーツ
+	/// 現在掴んでいるパーツ
 	/// </summary>
 	private BouquetPart heldPart;
+
+	/// <summary>
+	/// 掴み候補パーツ
+	/// </summary>
+	private BouquetPart heldTargetPart;
 
 	/// <summary>
 	/// 完成時のエフェクト
@@ -63,9 +68,14 @@ public class BouquetMaker : MonoBehaviour
 	public GameObject effect;
 
 	/// <summary>
+	/// 花を掴める距離メートル
+	/// </summary>
+	public float pickRange = 1f;
+
+	/// <summary>
 	/// 花を追加できる距離メートル
 	/// </summary>
-	public float validRange = 1f;
+	public float attachRange = 1f;
 
 	[SerializeField]
 	private AudioClip bouquetComp_se;
@@ -120,7 +130,7 @@ public class BouquetMaker : MonoBehaviour
 
 			// 摑み範囲外だったらスキップ
 			float distance = Mathf.Abs( ( b.transform.position - hand.position ).magnitude );
-			if( distance > validRange )
+			if( distance > pickRange )
 			{
 				continue;
 			}
@@ -152,14 +162,14 @@ public class BouquetMaker : MonoBehaviour
 		//　摑み候補があれば登録
 		if( tempHoldTarget != null )
 		{			
-			heldPart  = tempHoldTarget;
+			heldTargetPart  = tempHoldTarget;
 
 			// 摑み候補を光らせる
-			heldPart.Sparcle(true);
+			heldTargetPart.Sparcle(true);
 		}
 		else
 		{
-			heldPart = null;
+			heldTargetPart = null;
 		}
 	}
 
@@ -172,6 +182,7 @@ public class BouquetMaker : MonoBehaviour
 		{
 			return;
 		}
+
 		currentTriggerState = TriggerState.Pressed;
 
 		if( hand == null )
@@ -180,21 +191,22 @@ public class BouquetMaker : MonoBehaviour
 			return;
 		}
 
-		if( heldPart == null )
+		if( heldTargetPart == null )
 		{
 			Debug.Log("摑み候補なし");
 			return;
 		}
 
-		// 	掴み候補の親オブジェクトが自分の手の時
-		if( heldPart.transform.parent != null && heldPart.transform.parent.Equals( hand ) )
+		// 掴んでいるものがある
+		if( heldPart != null )
 		{
 			Debug.Log("既に掴んでいるものがある");
 			return;	
 		}
 
 		// 右手の子要素にセット
-		heldPart.transform.SetParent( hand );
+		heldTargetPart.transform.SetParent( hand );
+		heldPart = heldTargetPart;
 	}
 
 	/// <summary>
@@ -212,28 +224,23 @@ public class BouquetMaker : MonoBehaviour
 
 		if( heldPart == null )
 		{
-			Debug.Log("摑み候補なし");
-			return;
-		}
-
-		if( heldPart.transform.parent == null )
-		{
 			Debug.Log("掴んでいるものなし");
 			return;	
 		}
 
 		// 花束ベースとの距離が近ければ花束ベースの子要素に加える
 		float distance = Mathf.Abs( ( heldPart.transform.position - bouquetbase.position ).magnitude );
-		if( distance <= validRange )
+		if( distance <= attachRange )
 		{
 			heldPart.Attatch( bouquetbase );
-
+			heldPart = null;
 			// se
 			bouquetbase.GetComponent<AudioSource>().PlayOneShot( bouquetAttach_se );
 		}
 		else
 		{
 			heldPart.Release();
+			heldPart = null;
 		}
 	}
 
@@ -255,7 +262,7 @@ public class BouquetMaker : MonoBehaviour
 				b.Create( type );
 
 				// オフセットを指定
-				b.transform.position = transform.TransformPoint ( Vector3.forward * 1f );
+				b.transform.position = transform.TransformPoint ( Vector3.forward * 0.2f );
 			}
 		}
 
