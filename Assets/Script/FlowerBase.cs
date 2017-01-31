@@ -366,6 +366,7 @@ public class FlowerBase : MonoBehaviour {
 		model = GameObject.Instantiate<GameObject>(modelPrefab[(int)currentFlowerType]);
 		model.transform.SetParent(modelBase);
 		model.transform.localPosition = Vector3.zero;
+		model.transform.localRotation = Quaternion.identity;
 		model.transform.localScale = Vector3.zero;
 
 		// 名前セット
