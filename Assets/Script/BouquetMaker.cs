@@ -244,6 +244,9 @@ public class BouquetMaker : MonoBehaviour
 		}
 	}
 
+	[SerializeField]
+	private AudioClip bouquetStart_se;
+
 	/// <summary>
 	/// 所持している花束パーツを並べる
 	/// </summary>
@@ -264,7 +267,8 @@ public class BouquetMaker : MonoBehaviour
 			}
 		}
 
-		// TODO: 演出
+		// SE
+		bouquetbase.GetComponent<AudioSource>().PlayOneShot(bouquetPartsGone_se);
 
 		// 左手に花束の紙部分を持たせる
 		if( bouquetPackage == null)
@@ -272,8 +276,10 @@ public class BouquetMaker : MonoBehaviour
 			bouquetPackage = Instantiate(bouquetPackagePrefab) as GameObject;
 			bouquetPackage.transform.SetParent( bouquetbase, false );
 		}
-
 	}
+
+	[SerializeField]
+	private AudioClip bouquetPartsGone_se;
 
 	/// <summary>
 	/// 表示中の花束関連オブジェクトを破棄
@@ -295,6 +301,9 @@ public class BouquetMaker : MonoBehaviour
 		{
 			Destroy( bouquetPackage );
 		}
+
+		// SE
+		bouquetbase.GetComponent<AudioSource>().PlayOneShot(bouquetPartsGone_se);
 	}
 
 	/// <summary>
