@@ -211,22 +211,29 @@ public class VRInputManager : MonoBehaviour
 		}
 	}
 
-	/// <summary>
-	/// コントローラのタッチパッドが押された
-	/// </summary>
-	/// <param name="type">Type.</param>
-	private void OnPressTouchPad( HandType type )
-	{
-		Debug.Log( ((HandType)type).ToString() + "のタッチパッドが押された" );
-		var handObj = handObjects [(int)type];
-		tweet.Tweet(handObj);
-	}
+	public bool bloomByGrip = false;
 
 	/// <summary>
 	/// コントローラのグリップが押された
 	/// </summary>
 	/// <param name="type">Type.</param>
 	private void OnPressGrip( HandType type )
+	{
+		if( !bloomByGrip )
+		{
+			return;
+		}
+
+		Debug.Log( ((HandType)type).ToString() + "のタッチパッドが押された" );
+		var handObj = handObjects [(int)type];
+		tweet.Tweet(handObj);
+	}
+
+	/// <summary>
+	/// コントローラのタッチパッドが押された
+	/// </summary>
+	/// <param name="type">Type.</param>
+	private void OnPressTouchPad( HandType type )
 	{
 		Debug.Log( ((HandType)type).ToString() + "のグリップが押された" );
 

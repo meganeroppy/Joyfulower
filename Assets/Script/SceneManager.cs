@@ -27,7 +27,7 @@ public class SceneManager : MonoBehaviour
 	/// <summary>
 	/// ツイート情報取得間隔
 	/// </summary>
-	private const float update_interval = 15f;
+	private const float update_interval = 8f;
 
 	/// <summary>
 	/// APIマネージャ
@@ -101,7 +101,7 @@ public class SceneManager : MonoBehaviour
 		{
 			// データベースからの取得をシミュレート
 			Debug.Log("APIの返却値での花生成をシミュレートします");
-			var twtCnt = Random.Range(3, 15);
+			var twtCnt = Random.Range(6, 15);
 
 			var alp = "ABCDEF";
 
