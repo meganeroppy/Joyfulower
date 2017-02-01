@@ -1,0 +1,172 @@
+fileFormatVersion: 2
+guid: 9751c895fd7cc41908995cbf425fa54b
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Box259
+    100002: //RootNode
+    100004: Plane738
+    100006: Plane740
+    100008: Plane741
+    100010: Plane742
+    100012: Plane744
+    100014: Plane745
+    100016: Plane748
+    100018: Plane755
+    100020: Plane756
+    100022: ivy_01
+    100024: ivy_02
+    100026: ivy_03
+    100028: ivy_04
+    100030: ivy_05
+    100032: ivy_06
+    100034: ivy_07
+    100036: ivy_08
+    100038: ivy_09
+    100040: wall
+    400000: Box259
+    400002: //RootNode
+    400004: Plane738
+    400006: Plane740
+    400008: Plane741
+    400010: Plane742
+    400012: Plane744
+    400014: Plane745
+    400016: Plane748
+    400018: Plane755
+    400020: Plane756
+    400022: ivy_01
+    400024: ivy_02
+    400026: ivy_03
+    400028: ivy_04
+    400030: ivy_05
+    400032: ivy_06
+    400034: ivy_07
+    400036: ivy_08
+    400038: ivy_09
+    400040: wall
+    2300000: Box259
+    2300002: Plane738
+    2300004: Plane740
+    2300006: Plane741
+    2300008: Plane742
+    2300010: Plane744
+    2300012: Plane745
+    2300014: Plane748
+    2300016: Plane755
+    2300018: Plane756
+    2300020: ivy_01
+    2300022: ivy_02
+    2300024: ivy_03
+    2300026: ivy_04
+    2300028: ivy_05
+    2300030: ivy_06
+    2300032: ivy_07
+    2300034: ivy_08
+    2300036: ivy_09
+    2300038: wall
+    3300000: Box259
+    3300002: Plane738
+    3300004: Plane740
+    3300006: Plane741
+    3300008: Plane742
+    3300010: Plane744
+    3300012: Plane745
+    3300014: Plane748
+    3300016: Plane755
+    3300018: Plane756
+    3300020: ivy_01
+    3300022: ivy_02
+    3300024: ivy_03
+    3300026: ivy_04
+    3300028: ivy_05
+    3300030: ivy_06
+    3300032: ivy_07
+    3300034: ivy_08
+    3300036: ivy_09
+    3300038: wall
+    4300000: Box259
+    4300002: Plane738
+    4300004: Plane740
+    4300006: Plane741
+    4300008: Plane742
+    4300010: Plane744
+    4300012: Plane745
+    4300014: Plane748
+    4300016: Plane755
+    4300018: Plane756
+    4300020: wall
+    4300022: ivy_02
+    4300024: ivy_08
+    4300026: ivy_01
+    4300028: ivy_06
+    4300030: ivy_05
+    4300032: ivy_07
+    4300034: ivy_04
+    4300036: ivy_09
+    4300038: ivy_03
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 0.01
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

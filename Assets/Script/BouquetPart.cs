@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-
+using DG.Tweening;
 /// <summary>
 /// 花束を構成するパーツ
 /// </summary>
@@ -45,19 +45,28 @@ public class BouquetPart : MonoBehaviour {
 		GameObject obj = Instantiate( modelList[(int)type] );
 		obj.transform.SetParent( modelBase );
 
-		transform.position = position;
-
-		// 初期位置をセット
-		originPos = transform.position;
-		// 初期回転をセット
-		originRot = transform.rotation;
-
 		// リストに自身を追加
 		if( bList == null )
 		{
 			bList = new List<BouquetPart>();
 		}
 		bList.Add(this);
+
+		// 初期位置をセット
+		originPos = position;
+
+		CreateExp(position);
+	}
+
+	/// <summary>
+	/// 作成演出
+	/// 左手から花束パーツが飛び出す
+	/// </summary>
+	private void CreateExp( Vector3 endPos )
+	{
+		transform.localPosition = Vector3.zero;
+
+		transform.DOMove( endPos, 0.75f );
 	}
 
 	/// <summary>

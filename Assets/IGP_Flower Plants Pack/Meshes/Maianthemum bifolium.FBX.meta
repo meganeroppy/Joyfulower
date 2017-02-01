@@ -1,0 +1,215 @@
+fileFormatVersion: 2
+guid: 282cc62c110174d4db7a9865b5086c98
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: Maianthemum bifolium
+    100004: Maianthemum bifolium001
+    100006: Object001
+    100008: Maianthemum bifolium002
+    100010: Object027
+    100012: Object029
+    100014: Object030
+    100016: Object031
+    100018: Object032
+    100020: Object033
+    100022: Object034
+    100024: Object035
+    100026: Object036
+    100028: Object037
+    100030: Object038
+    100032: Object039
+    100034: Object040
+    100036: Object041
+    100038: Object042
+    100040: Object043
+    100042: Object044
+    100044: Object045
+    100046: Object046
+    100048: Object047
+    100050: Object048
+    100052: Object049
+    100054: Object050
+    100056: Maianthemum bifolium004
+    400000: //RootNode
+    400002: Maianthemum bifolium
+    400004: Maianthemum bifolium001
+    400006: Object001
+    400008: Maianthemum bifolium002
+    400010: Object027
+    400012: Object029
+    400014: Object030
+    400016: Object031
+    400018: Object032
+    400020: Object033
+    400022: Object034
+    400024: Object035
+    400026: Object036
+    400028: Object037
+    400030: Object038
+    400032: Object039
+    400034: Object040
+    400036: Object041
+    400038: Object042
+    400040: Object043
+    400042: Object044
+    400044: Object045
+    400046: Object046
+    400048: Object047
+    400050: Object048
+    400052: Object049
+    400054: Object050
+    400056: Maianthemum bifolium004
+    2300000: Maianthemum bifolium
+    2300002: Maianthemum bifolium001
+    2300004: Object001
+    2300006: //RootNode
+    2300008: Maianthemum bifolium002
+    2300010: Object027
+    2300012: Object029
+    2300014: Object030
+    2300016: Object031
+    2300018: Object032
+    2300020: Object033
+    2300022: Object034
+    2300024: Object035
+    2300026: Object036
+    2300028: Object037
+    2300030: Object038
+    2300032: Object039
+    2300034: Object040
+    2300036: Object041
+    2300038: Object042
+    2300040: Object043
+    2300042: Object044
+    2300044: Object045
+    2300046: Object046
+    2300048: Object047
+    2300050: Object048
+    2300052: Object049
+    2300054: Object050
+    2300056: Maianthemum bifolium004
+    3300000: Maianthemum bifolium
+    3300002: Maianthemum bifolium001
+    3300004: Object001
+    3300006: //RootNode
+    3300008: Maianthemum bifolium002
+    3300010: Object027
+    3300012: Object029
+    3300014: Object030
+    3300016: Object031
+    3300018: Object032
+    3300020: Object033
+    3300022: Object034
+    3300024: Object035
+    3300026: Object036
+    3300028: Object037
+    3300030: Object038
+    3300032: Object039
+    3300034: Object040
+    3300036: Object041
+    3300038: Object042
+    3300040: Object043
+    3300042: Object044
+    3300044: Object045
+    3300046: Object046
+    3300048: Object047
+    3300050: Object048
+    3300052: Object049
+    3300054: Object050
+    3300056: Maianthemum bifolium004
+    4300000: Maianthemum bifolium
+    4300002: Maianthemum bifolium001
+    4300004: Object001
+    4300006: Maianthemum bifolium003
+    4300008: Maianthemum bifolium002
+    4300010: Object027
+    4300012: Object029
+    4300014: Object030
+    4300016: Object031
+    4300018: Object032
+    4300020: Object033
+    4300022: Object034
+    4300024: Object035
+    4300026: Object036
+    4300028: Object037
+    4300030: Object038
+    4300032: Object039
+    4300034: Object040
+    4300036: Object041
+    4300038: Object042
+    4300040: Object043
+    4300042: Object044
+    4300044: Object045
+    4300046: Object046
+    4300048: Object047
+    4300050: Object048
+    4300052: Object049
+    4300054: Object050
+    4300056: Maianthemum bifolium004
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 0.01
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

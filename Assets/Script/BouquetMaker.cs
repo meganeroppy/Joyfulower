@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 
 /// <summary>
 /// 花束作成クラス
@@ -254,16 +255,27 @@ public class BouquetMaker : MonoBehaviour
 	{
 		Debug.Log("花束関連オブジェクト生成");
 
-		// 所持している花を並べる
+		// 所持している花をグリッド状に並べる
+
+
+		// グリッドの中心点
+//		var centerPos = hand.transform.position;
+		var centerPos = Vector3.forward * 0.2f;
+		var unit = 0.2f;
+
 		for( int i=0 ; i < SceneManager.instance.fList.Count ; i++ )
 		{
+			
+			var posY = centerPos.y + (unit * i);
 			var flower = SceneManager.instance.fList[i];
 			for( int j = 0 ; j < flower.count ; j++ )
 			{
+				var posX = centerPos.x + (unit * j);
+
 				var b = Instantiate( bouquetPartPrefab ).GetComponent<BouquetPart>();
 				var type = flower.flowerType;
 
-				b.Create( type, transform.TransformPoint ( Vector3.forward * 0.2f ) );
+				b.Create( type, transform.TransformPoint ( new Vector3( posX, posY, 0 ) ) );
 			}
 		}
 
@@ -306,6 +318,9 @@ public class BouquetMaker : MonoBehaviour
 		bouquetbase.GetComponent<AudioSource>().PlayOneShot(bouquetPartsGone_se);
 	}
 
+	[SerializeField]
+	private SpriteRenderer whiteScreen;
+
 	/// <summary>
 	/// 花束完成
 	/// </summary>
@@ -325,5 +340,22 @@ public class BouquetMaker : MonoBehaviour
 		now = now. Replace ("/", "").Replace (" ", "").Replace (":", "");
 
 		Application.CaptureScreenshot ( "JoyfulowerScreenShot" + now + ".png" );
+
+		StartCoroutine( Flash() );
+	}
+
+
+	Tween tween;
+	/// <summary>
+	/// カメラのフラッシュ
+	/// </summary>
+	private IEnumerator Flash()
+	{
+		
+		tween = whiteScreen.DOColor(Color.white, 0.25f).OnComplete( () => tween = null );
+		while( tween != null ) yield return null;
+		tween = whiteScreen.DOColor(Color.clear, 0.75f).OnComplete( () => tween = null );
+		while( tween != null ) yield return null;
+
 	}
 }
