@@ -250,6 +250,13 @@ public class BouquetMaker : MonoBehaviour
 
 	/// <summary>
 	/// 所持している花束パーツを並べる
+	/// TODO: 持っている種類が全て並ばない不具合を修正
+	/// TODO: 大量の花がある場合は表示に上限を設定
+	/// TODO: パーツの並び方に工夫を
+	/// TODO: 花束の紙にClothを使ってみる
+	/// TODO: 右手、左手にこだわらない設計をめざす
+	/// TODO: コントローラのタッチパッド部分にモード切替っぽいアイコンを置く
+	/// TODO: 拾った時の振動をチェック
 	/// </summary>
 	public void CreateBouquetParts()
 	{
@@ -351,11 +358,9 @@ public class BouquetMaker : MonoBehaviour
 	/// </summary>
 	private IEnumerator Flash()
 	{
-		
 		tween = whiteScreen.DOColor(Color.white, 0.25f).OnComplete( () => tween = null );
 		while( tween != null ) yield return null;
 		tween = whiteScreen.DOColor(Color.clear, 0.75f).OnComplete( () => tween = null );
 		while( tween != null ) yield return null;
-
 	}
 }
