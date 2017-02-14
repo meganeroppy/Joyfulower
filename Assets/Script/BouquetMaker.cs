@@ -26,8 +26,7 @@ public class BouquetMaker : MonoBehaviour
 	/// <summary>
 	/// 掴む手
 	/// </summary>
-	[SerializeField]
-	private Transform hand;
+	private Transform hand = null;
 
 	/// <summary>
 	/// 花束パーツプレハブ
@@ -38,8 +37,7 @@ public class BouquetMaker : MonoBehaviour
 	/// <summary>
 	/// 花束ベース
 	/// </summary>
-	[SerializeField]
-	Transform bouquetbase;
+	Transform bouquetbase = null;
 
 	/// <summary>
 	/// 花束の紙部分
@@ -116,6 +114,11 @@ public class BouquetMaker : MonoBehaviour
 	/// </summary>
 	private void UpdateHoldTarget()
 	{
+		if( hand == null )
+		{
+			return;
+		}
+
 		// 摑み候補
 		BouquetPart tempHoldTarget = null;
 
@@ -176,21 +179,29 @@ public class BouquetMaker : MonoBehaviour
 
 	/// <summary>
 	/// 範囲内の花を掴む
+	/// 花束ベースの手で行われた際は花束を完成
 	/// </summary>
-	public void TryHold()
+	public void TryHold( Transform holdHand )
 	{
 		if (currentTriggerState.Equals (TriggerState.Pressed))
 		{
 			return;
 		}
 
-		currentTriggerState = TriggerState.Pressed;
-
-		if( hand == null )
+		if( hand == null || bouquetBase == null)
 		{
-			Debug.LogError("右手オブジェクトが未定義");
+			Debug.LogError( "手、花束ベース、または両方が未定義" );
 			return;
 		}
+
+		if( holdHand.Equals( bouquetBase ) )
+		{
+			// 花束完成
+			CompleteBouquet();
+			return;
+		}
+		
+		currentTriggerState = TriggerState.Pressed;
 
 		if( heldTargetPart == null )
 		{
@@ -213,13 +224,19 @@ public class BouquetMaker : MonoBehaviour
 	/// <summary>
 	/// 掴んでいるものを離す
 	/// </summary>
-	public void Release()
+	public void Release( Transform holdHand )
 	{
 		currentTriggerState = TriggerState.Released;
 
-		if( hand == null )
+		if( hand == null || bouquetBase == null )
 		{
-			Debug.LogError("右手オブジェクトが未定義");
+			Debug.LogError( "手、花束ベース、または両方が未定義" );
+			return;
+		}
+
+		if( !holdHand.Equals( hand ) )
+		{
+			Debug.Log( "掴む手ではないのでなにもしない" );
 			return;
 		}
 
@@ -258,8 +275,14 @@ public class BouquetMaker : MonoBehaviour
 	/// TODO: コントローラのタッチパッド部分にモード切替っぽいアイコンを置く
 	/// TODO: 拾った時の振動をチェック
 	/// </summary>
-	public void CreateBouquetParts()
+	public void CreateBouquetParts( Transform bouquetBase, Transform hand )
 	{
+		// 花束ベースを登録
+		this.bouquetBase = bouquetBase;
+
+		// 掴む手を登録
+		this.hand = hand;
+
 		Debug.Log("花束関連オブジェクト生成");
 
 		// 所持している花をグリッド状に並べる
@@ -323,6 +346,9 @@ public class BouquetMaker : MonoBehaviour
 
 		// SE
 		bouquetbase.GetComponent<AudioSource>().PlayOneShot(bouquetPartsGone_se);
+
+		bouquetBase = null;
+		hand = null;
 	}
 
 	[SerializeField]

@@ -72,7 +72,7 @@ public class VRInputManager : MonoBehaviour
 
 			if( ++totalWaitSec > maxWaitCount || Input.GetKey(KeyCode.Space))
 			{
-				Debug.Log(maxWaitCount.ToString() + "秒待ってもViveコントローラへの接続が確認できなかったので、キーボード捜査モードに移行します。");
+				Debug.Log(maxWaitCount.ToString() + "秒待ってもViveコントローラへの接続が確認できなかったので、キーボード操作モードに移行します。");
 				controllerNonVR.SetActive(true);
 				cameraRig.SetActive(false);
 				yield break;
@@ -102,7 +102,6 @@ public class VRInputManager : MonoBehaviour
 		Debug.Log("Viveコントローラの初期化が完了");
 	}
 	
-	// Update is called once per frame
 	void Update () 
 	{
 		if (!initialized) 
@@ -167,23 +166,26 @@ public class VRInputManager : MonoBehaviour
 		// 花束作成シーンなら摑み 歩きなら摘み
 		if( SceneManager.instance.sceneType.Equals( SceneManager.SceneType.Bouquet ) )
 		{
-			if( handType == HandType.Right )
+		//	if( handType == HandType.Right )
+		//	{
+			var idx = ( int )handType;
+			if( handObjects.Count >= idx )
 			{
-				bouquetMaker.TryHold();
+				bouquetMaker.TryHold( handObjects[ idx ].transform );
 			}
-			else
-			{
-				bouquetMaker.CompleteBouquet();
-			}
+
+		//	}
+		//	else
+		//	{
+		//		bouquetMaker.CompleteBouquet();
+		//	}
 
 		}
 		else
 		{
 			var idx = (int)handType;
-
 			if( handObjects.Count >= idx )
 			{
-				// TODO "pos"でワールド座標が取れているかチェックすること
 				picker.TryPick(handObjects[ idx ].transform.position);
 			}
 		}
@@ -199,15 +201,18 @@ public class VRInputManager : MonoBehaviour
 		Debug.Log( ((HandType)type).ToString() + "のトリガーが解除された" );
 
 		// 左手ならなにもしない
-		if( type.Equals(HandType.Left) )
-		{
-			return;
-		}
+	//	if( type.Equals(HandType.Left) )
+	//	{
+	//		return;
+	//	}
 
 		// 花束作成シーンなら花束パーツ解放
 		if( SceneManager.instance.sceneType.Equals( SceneManager.SceneType.Bouquet ))
 		{
-			bouquetMaker.Release();
+			if( handObjects.Count >= ( int )type )
+			{
+				bouquetMaker.Release( handObjects[ ( int )type ].transform );
+			}
 		}
 	}
 
@@ -224,7 +229,7 @@ public class VRInputManager : MonoBehaviour
 			return;
 		}
 
-		Debug.Log( ((HandType)type).ToString() + "のタッチパッドが押された" );
+		Debug.Log( ( ( HandType )type ).ToString() + "のグリップが押された" );
 		var handObj = handObjects [(int)type];
 		tweet.Tweet(handObj);
 	}
@@ -235,7 +240,7 @@ public class VRInputManager : MonoBehaviour
 	/// <param name="type">Type.</param>
 	private void OnPressTouchPad( HandType type )
 	{
-		Debug.Log( ((HandType)type).ToString() + "のグリップが押された" );
+		Debug.Log( ( ( HandType )type ).ToString() + "のタッチパッドが押された" );
 
 		// 通常シーンと花束作成シーンを切り替え
 		SceneManager sm = SceneManager.instance;
@@ -243,8 +248,16 @@ public class VRInputManager : MonoBehaviour
 
 		if( sm.sceneType.Equals( SceneManager.SceneType.Bouquet ) )
 		{
+			var bouquetHandIdx = ( int )type;
+			var otherHnadIdx = handIdx == 0 ? 1 : 0;
+
+			if( handObjects.Count >= bouquetHandIdx && handObjects.Count >= otherHandIdx )
+			{
+				bouquetMaker.CreateBouquetParts( handObjects[ bouquetHandIdx ].transform, handObjects[ otherHandIdx ].transform );
+			}
+
 			// 花束作成シーンに切り替え時は花束パーツ生成
-			bouquetMaker.CreateBouquetParts();
+		//	bouquetMaker.CreateBouquetParts();
 		}
 		else
 		{
