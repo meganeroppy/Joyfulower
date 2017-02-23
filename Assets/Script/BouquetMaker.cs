@@ -266,9 +266,13 @@ public class BouquetMaker : MonoBehaviour
 	private AudioClip bouquetStart_se;
 
 	/// <summary>
+	/// 種類ごとに並ぶ花の数上限
+	/// </summary>
+	public int maxLinedFlowerNum = 10;
+
+	/// <summary>
 	/// 所持している花束パーツを並べる
 	/// TODO: 持っている種類が全て並ばない不具合を修正
-	/// TODO: 大量の花がある場合は表示に上限を設定
 	/// TODO: パーツの並び方に工夫を
 	/// TODO: 花束の紙にClothを使ってみる
 	/// TODO: 右手、左手にこだわらない設計をめざす
@@ -294,12 +298,17 @@ public class BouquetMaker : MonoBehaviour
 		var unit = 0.2f;
 
 		for( int i=0 ; i < SceneManager.instance.fList.Count ; i++ )
-		{
-			
+		{			
 			var posY = centerPos.y + (unit * i);
 			var flower = SceneManager.instance.fList[i];
 			for( int j = 0 ; j < flower.count ; j++ )
 			{
+				if( j >= maxLinedFlowerNum )
+				{
+					Debug.Log( maxLinedFlowerNum.ToString() + "輪以上の花は並べない" );
+					break;
+				}
+
 				var posX = centerPos.x + (unit * j);
 
 				var b = Instantiate( bouquetPartPrefab ).GetComponent<BouquetPart>();
