@@ -276,7 +276,7 @@ public class BouquetMaker : MonoBehaviour
 	/// TODO: パーツの並び方に工夫を
 	/// TODO: 花束の紙にClothを使ってみる
 	/// TODO: 右手、左手にこだわらない設計をめざす
-	/// TODO: コントローラのタッチパッド部分にモード切替っぽいアイコンを置く
+	/// TODO: コントローラのタッチパッド部分にモード切替っぽいアイコンを置く <- 制御クラスの基礎を実装
 	/// TODO: 拾った時の振動をチェック
 	/// </summary>
 	public void CreateBouquetParts( Transform bouquetBase, Transform hand )
@@ -397,5 +397,39 @@ public class BouquetMaker : MonoBehaviour
 		while( tween != null ) yield return null;
 		tween = whiteScreen.DOColor(Color.clear, 0.75f).OnComplete( () => tween = null );
 		while( tween != null ) yield return null;
+	}
+}
+
+
+/// ここから下は新しいソースに引越し
+public class ModeIconDisplay : MonoBehaviour
+{
+	/// <summary>
+	/// アイコンイメージ
+	/// </summary>
+	[SerializeField]
+	private SpriteRenderer iconImage;
+
+	/// <summary>
+	/// 表示するスプライト
+	/// </summary>
+	[SerializeField]
+	private List<Sprite> iconSprites;
+
+	private int curSpriteIdx = 0;
+
+	private void Update()
+	{
+		//TODO: 現在のモードによってアイコンを切り替え
+		var curMode = 0;
+
+		if( curSpriteIdx != curMode )
+		{
+			Debug.Log( "表示するアイコンを切り替え" );
+
+			curSpriteIdx = curMode;
+
+			iconImage.Sprite = iconSprites[ curSpriteIdx ];
+		}
 	}
 }
