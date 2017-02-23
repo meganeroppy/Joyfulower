@@ -30,6 +30,7 @@ public class BouquetMaker : MonoBehaviour
 
 	/// <summary>
 	/// 花束パーツプレハブ
+	/// TODO: 咲いてる用とパーツ用にマテリアル&プレハブを別々に用意 後者には葉っぱなしマテリアルを使用する
 	/// </summary>
 	[SerializeField]
 	BouquetPart bouquetPartPrefab;
@@ -276,8 +277,10 @@ public class BouquetMaker : MonoBehaviour
 	/// TODO: パーツの並び方に工夫を
 	/// TODO: 花束の紙にClothを使ってみる
 	/// TODO: 右手、左手にこだわらない設計をめざす
-	/// TODO: コントローラのタッチパッド部分にモード切替っぽいアイコンを置く <- 制御クラスの基礎を実装
+	/// TODO: コントローラのタッチパッド部分にモード切替っぽいアイコンを置く <- 制御クラスの基礎を実装 仮アイコン２種をプロジェクトについか
 	/// TODO: 拾った時の振動をチェック
+	/// TODO: 生えているときは葉っぱありテクスチャ、花束パーツになったら葉っぱなしテクスチャ
+	/// TODO: 花のスケール感にもっとリアリティを
 	/// </summary>
 	public void CreateBouquetParts( Transform bouquetBase, Transform hand )
 	{

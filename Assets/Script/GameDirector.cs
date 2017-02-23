@@ -61,8 +61,16 @@ public class GameDirector : MonoBehaviour
 		StartCoroutine( StartLoad() );
     }
 
+	private void Update()
+	{
+		//TODO: 花束作成モード中は非表示
+		var isExploreMode = true;
+		ItemPanel.SetActive( isExploreMode );
+	}
+
 	IEnumerator StartLoad()
 	{
+		// シーンマネージャ実態が生成されるまで待機
 		while( SceneManager.instance == null ) yield return null;
 
 		// Listに初期値を設定
