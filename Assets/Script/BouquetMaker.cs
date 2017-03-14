@@ -293,7 +293,7 @@ public class BouquetMaker : MonoBehaviour
 		Debug.Log("花束関連オブジェクト生成");
 
 		// 所持している花をグリッド状に並べる
-
+		// TODO: UIが表示されている手からパーツが生まれ、目の前に並べられる
 
 		// グリッドの中心点
 //		var centerPos = hand.transform.position;
