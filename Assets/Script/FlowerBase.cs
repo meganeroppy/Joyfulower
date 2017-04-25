@@ -442,55 +442,59 @@ public class FlowerBase : MonoBehaviour {
 	/// <summary>
 	/// 花を摘む
 	/// </summary>
-	public void Pick()
+	public bool Pick()
 	{
-		if( blooming )
-		{
-			if (currentFlowerType.Equals (FlowerType.None)) {
-				return;
-			}
+		if (!blooming) {
+			return false;
+		}
 
-			// UIに反映
+		if (currentFlowerType.Equals (FlowerType.None)) {
+			return false;
+		}
+
+		// UIに反映
 //			if (GameDirector.instance != null) {
 //				GameDirector.instance.CountObj (model.gameObject.name);
 //			}
 
-			// 花アイテム情報をリストに追加
-			// 同じ花タイプのアイテムがすでにリストに入っているかチェック
-			var fItem = SceneManager.instance.fList.Find( f => f.flowerType.Equals( currentFlowerType ) );
+		// 花アイテム情報をリストに追加
+		// 同じ花タイプのアイテムがすでにリストに入っているかチェック
+		var fItem = SceneManager.instance.fList.Find( f => f.flowerType.Equals( currentFlowerType ) );
 
-			if( fItem != null )
-			{
-				
-				// 入っていたらカウントを加算
-				fItem.count++;
-				Debug.Log( fItem.flowerType + "の数を更新[ " + fItem.count.ToString() + " ]"); 
-			}
-			else
-			{
-				// 入っていなかったら新しく追加する
-				fItem = new SceneManager.FlowerItem();
-				fItem.flowerType = currentFlowerType;
-				fItem.name = model.name;
-				fItem.count = 1;
-				SceneManager.instance.fList.Add( fItem );
-				Debug.Log( fItem.flowerType + "を新しく追加");
-			}
-
-			// UI更新
-			GameDirector.instance.SetUI();
-
-			//se 
-			myAudio.PlayOneShot(picked_se);
-
-			// モデルを削除
-			Die();
-
-			// エフェクト
-			GameObject g = GameObject.Instantiate(effect);
-			g.transform.SetParent( particleBase );
-			g.transform.localPosition = Vector3.forward * posY;
-			g.transform.localRotation = Quaternion.identity;
+		if( fItem != null )
+		{
+			
+			// 入っていたらカウントを加算
+			fItem.count++;
+			Debug.Log( fItem.flowerType + "の数を更新[ " + fItem.count.ToString() + " ]"); 
 		}
+		else
+		{
+			// 入っていなかったら新しく追加する
+			fItem = new SceneManager.FlowerItem();
+			fItem.flowerType = currentFlowerType;
+			fItem.name = model.name;
+			fItem.count = 1;
+			SceneManager.instance.fList.Add( fItem );
+			Debug.Log( fItem.flowerType + "を新しく追加");
+		}
+
+		// UI更新
+		GameDirector.instance.SetUI();
+
+		//se 
+		myAudio.PlayOneShot(picked_se);
+
+		// モデルを削除
+		Die();
+
+		// エフェクト
+		GameObject g = GameObject.Instantiate(effect);
+		g.transform.SetParent( particleBase );
+		g.transform.localPosition = Vector3.forward * posY;
+		g.transform.localRotation = Quaternion.identity;
+
+		return true;
 	}
+
 }

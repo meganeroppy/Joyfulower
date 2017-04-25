@@ -34,7 +34,7 @@ public class BouquetPart : MonoBehaviour {
 	/// <summary>
 	/// 生成
 	/// </summary>
-	public void Create( FlowerBase.FlowerType type, Vector3 position )
+	public void Create( FlowerBase.FlowerType type, Vector3 position, Transform baseTransform )
 	{
 		if( (int)type >= modelList.Count )
 		{
@@ -44,6 +44,14 @@ public class BouquetPart : MonoBehaviour {
 		
 		GameObject obj = Instantiate( modelList[(int)type] );
 		obj.transform.SetParent( modelBase );
+		obj.transform.localPosition = Vector3.zero;
+
+		transform.rotation = Quaternion.identity;
+
+		transform.SetParent (baseTransform);
+		transform.localRotation = Quaternion.Euler (transform.localRotation.x, -180f, transform.localRotation.z);	
+		transform.SetParent (null);
+		//transform.rotation = Quaternion.Euler (0, transform.rotation.y, 0);
 
 		// リストに自身を追加
 		if( bList == null )
@@ -64,8 +72,6 @@ public class BouquetPart : MonoBehaviour {
 	/// </summary>
 	private void CreateExp( Vector3 endPos )
 	{
-		transform.localPosition = Vector3.zero;
-
 		transform.DOMove( endPos, 0.75f );
 	}
 

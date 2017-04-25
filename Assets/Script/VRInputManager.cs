@@ -115,6 +115,9 @@ public class VRInputManager : MonoBehaviour
 		for( int i=0 ; i<handDevices.Count ; i++ )
 		{
 			var hand = handDevices[i];
+
+//			Debug.LogWarning ("i=" + i.ToString () + " hand.Index=" + hand.index.ToString ());
+
 			if( hand != null )
 			{			
 				if (hand.GetTouchDown(SteamVR_Controller.ButtonMask.Trigger) || Input.GetKeyDown(KeyCode.A)) {
@@ -166,28 +169,27 @@ public class VRInputManager : MonoBehaviour
 		// 花束作成シーンなら摑み 歩きなら摘み
 		if( SceneManager.instance.sceneType.Equals( SceneManager.SceneType.Bouquet ) )
 		{
-		//	if( handType == HandType.Right )
-		//	{
 			var idx = ( int )handType;
 			if( handObjects.Count >= idx )
 			{
 				bouquetMaker.TryHold( handObjects[ idx ].transform );
+			}else {
+				Debug.LogError ("つかもうとしたが失敗 idx=" + idx.ToString() + " 手の数=" + handObjects.Count.ToString() );
 			}
-
-		//	}
-		//	else
-		//	{
-		//		bouquetMaker.CompleteBouquet();
-		//	}
-
 		}
 		else
 		{
 			var idx = (int)handType;
-			if( handObjects.Count >= idx )
-			{
-				picker.TryPick(handObjects[ idx ].transform.position);
+			if (handObjects.Count >= idx) {
+				var successPick = picker.TryPick (handObjects [idx].transform.position);
+
+				handDevices[idx].TriggerHapticPulse( (ushort)(successPick ? 2000 : 200) );
+			} else {
+				Debug.LogError ("摘もうしたが失敗 idx=" + idx.ToString() + " 手の数=" + handObjects.Count.ToString() );
 			}
+
+			// 使われなかった手のインデックスを保存
+			GameDirector.instance.otherHandIdx = idx == 0 ? 1 : 0;
 		}
 	}
 
@@ -199,12 +201,6 @@ public class VRInputManager : MonoBehaviour
 	private void OnReleaseTrigger( HandType type )
 	{
 		Debug.Log( ((HandType)type).ToString() + "のトリガーが解除された" );
-
-		// 左手ならなにもしない
-	//	if( type.Equals(HandType.Left) )
-	//	{
-	//		return;
-	//	}
 
 		// 花束作成シーンなら花束パーツ解放
 		if( SceneManager.instance.sceneType.Equals( SceneManager.SceneType.Bouquet ))
@@ -246,23 +242,24 @@ public class VRInputManager : MonoBehaviour
 		SceneManager sm = SceneManager.instance;
 		sm.sceneType = sm.sceneType.Equals( SceneManager.SceneType.Walk ) ? SceneManager.SceneType.Bouquet : SceneManager.SceneType.Walk;
 
+		var mainHandIdx = ( int )type;
+		var otherHandIdx = mainHandIdx == 0 ? 1 : 0;
+
 		if( sm.sceneType.Equals( SceneManager.SceneType.Bouquet ) )
 		{
-			var bouquetHandIdx = ( int )type;
-			var otherHnadIdx = handIdx == 0 ? 1 : 0;
-
-			if( handObjects.Count >= bouquetHandIdx && handObjects.Count >= otherHandIdx )
+			if( handObjects.Count >= mainHandIdx && handObjects.Count >= otherHandIdx )
 			{
-				bouquetMaker.CreateBouquetParts( handObjects[ bouquetHandIdx ].transform, handObjects[ otherHandIdx ].transform );
+				// 花束作成シーンに切り替え時は花束パーツ生成
+				bouquetMaker.CreateBouquetParts( handObjects[ otherHandIdx ].transform, handObjects[ mainHandIdx ].transform );
 			}
-
-			// 花束作成シーンに切り替え時は花束パーツ生成
-		//	bouquetMaker.CreateBouquetParts();
 		}
 		else
 		{
 			// 歩きシーンに切り替え時は花束作成関連オブジェクト破棄
 			bouquetMaker.RemoveBouquetParts();
 		}
+
+		// 使われなかった手のインデックスを保存
+		GameDirector.instance.otherHandIdx = otherHandIdx;
 	}
 }

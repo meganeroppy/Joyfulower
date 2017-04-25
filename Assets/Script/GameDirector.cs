@@ -11,17 +11,28 @@ public class GameDirector : MonoBehaviour
 
     //ItemPanel・ImgPrefabの設定用
     public GameObject ItemPrefab;
-    public GameObject ItemPanel;
+    public List<GameObject> ItemPanels;
+
+	/// <summary>
+	/// 花の収穫に使われなかったほうの手のインデックス
+	/// </summary>
+	public int otherHandIdx = 0;
 
     //UIの描画
 	public void SetUI()
     {
         //一回、itempanelの子要素を全削除
         //※全削除→再描画方式が最善かは要検討。順番やエフェクト等考えるとなんだかんだ一番効率的な気はしている。
-        for (int j = ItemPanel.transform.childCount - 1; j >= 0; j--)
-        {
-            GameObject.DestroyImmediate(ItemPanel.transform.GetChild(j).gameObject);
-        }
+		for (int i = 0; i < ItemPanels.Count; i++) {
+			var ItemPanel = ItemPanels [i];
+			for (int j = ItemPanel.transform.childCount - 1; j >= 0; j--)
+			{
+				GameObject.DestroyImmediate(ItemPanel.transform.GetChild(j).gameObject);
+			}
+		}
+
+		var currentItemPanelIdx = otherHandIdx;
+
 
 		var flowerList = SceneManager.instance.fList;
 
@@ -31,7 +42,7 @@ public class GameDirector : MonoBehaviour
             GameObject item = Instantiate(ItemPrefab) as GameObject;
 			var fItem = flowerList[i];
 			item.name = fItem.name;
-            item.transform.SetParent(ItemPanel.transform, false);
+			item.transform.SetParent(ItemPanels[currentItemPanelIdx].transform, false);
             
             Image img = item.GetComponent<Image>();
 			//img.sprite = Resources.Load<Sprite>(fItem.name);
@@ -63,9 +74,10 @@ public class GameDirector : MonoBehaviour
 
 	private void Update()
 	{
-		//TODO: 花束作成モード中は非表示
-		var isExploreMode = true;
-		ItemPanel.SetActive( isExploreMode );
+		//花束作成モード中は非表示
+		for (int i = 0; i < ItemPanels.Count; i++) {
+			var ItemPanel = ItemPanels [i];
+			ItemPanel.SetActive( SceneManager.instance.sceneType.Equals( SceneManager.SceneType.Walk ) );		}
 	}
 
 	IEnumerator StartLoad()
@@ -94,4 +106,5 @@ public class GameDirector : MonoBehaviour
 
 		SetUI();
 	}
+
 }

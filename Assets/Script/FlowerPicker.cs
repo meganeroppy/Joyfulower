@@ -24,13 +24,15 @@ public class FlowerPicker : MonoBehaviour {
 	/// <summary>
 	/// 範囲内の花を摘む
 	/// </summary>
-	public void TryPick( Vector3 originPos )
+	public bool TryPick( Vector3 originPos )
 	{
 		// 基準座標から最寄りの花を取得
 		FlowerBase fb = FlowerBase.GetNearestFlower( originPos, pickRange );
 		if( fb != null )
 		{
-			fb.Pick();
+			return fb.Pick();
 		}
+
+		return false;
 	}
 }

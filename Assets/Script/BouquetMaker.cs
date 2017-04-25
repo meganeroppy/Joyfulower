@@ -38,7 +38,7 @@ public class BouquetMaker : MonoBehaviour
 	/// <summary>
 	/// 花束ベース
 	/// </summary>
-	Transform bouquetbase = null;
+	Transform bouquetBase = null;
 
 	/// <summary>
 	/// 花束の紙部分
@@ -248,13 +248,13 @@ public class BouquetMaker : MonoBehaviour
 		}
 
 		// 花束ベースとの距離が近ければ花束ベースの子要素に加える
-		float distance = Mathf.Abs( ( heldPart.transform.position - bouquetbase.position ).magnitude );
+		float distance = Mathf.Abs( ( heldPart.transform.position - bouquetBase.position ).magnitude );
 		if( distance <= attachRange )
 		{
-			heldPart.Attatch( bouquetbase );
+			heldPart.Attatch( bouquetBase );
 			heldPart = null;
 			// se
-			bouquetbase.GetComponent<AudioSource>().PlayOneShot( bouquetAttach_se );
+			bouquetBase.GetComponent<AudioSource>().PlayOneShot( bouquetAttach_se );
 		}
 		else
 		{
@@ -271,13 +271,13 @@ public class BouquetMaker : MonoBehaviour
 	/// </summary>
 	public int maxLinedFlowerNum = 10;
 
+	private float[] posxList = new float[6]{0.5f, 1f, 0.5f, -0.5f, -1f, -0.5f}; 
+
+	private float[] poszList = new float[6]{1f, 0, -1f, -1f, 0, 1f};
+
 	/// <summary>
 	/// 所持している花束パーツを並べる
-	/// TODO: 持っている種類が全て並ばない不具合を修正
-	/// TODO: パーツの並び方に工夫を
 	/// TODO: 花束の紙にClothを使ってみる
-	/// TODO: 右手、左手にこだわらない設計をめざす
-	/// TODO: コントローラのタッチパッド部分にモード切替っぽいアイコンを置く <- 制御クラスの基礎を実装 仮アイコン２種をプロジェクトについか
 	/// TODO: 拾った時の振動をチェック
 	/// TODO: 生えているときは葉っぱありテクスチャ、花束パーツになったら葉っぱなしテクスチャ
 	/// TODO: 花のスケール感にもっとリアリティを
@@ -293,16 +293,16 @@ public class BouquetMaker : MonoBehaviour
 		Debug.Log("花束関連オブジェクト生成");
 
 		// 所持している花をグリッド状に並べる
-		// TODO: UIが表示されている手からパーツが生まれ、目の前に並べられる
 
 		// グリッドの中心点
-//		var centerPos = hand.transform.position;
-		var centerPos = Vector3.forward * 0.2f;
-		var unit = 0.2f;
+		var centerPos = hand.transform.position;
+		var unit = 0.25f;
 
 		for( int i=0 ; i < SceneManager.instance.fList.Count ; i++ )
 		{			
-			var posY = centerPos.y + (unit * i);
+			var posY = centerPos.y;	
+//			var posY = 0;	
+
 			var flower = SceneManager.instance.fList[i];
 			for( int j = 0 ; j < flower.count ; j++ )
 			{
@@ -311,24 +311,30 @@ public class BouquetMaker : MonoBehaviour
 					Debug.Log( maxLinedFlowerNum.ToString() + "輪以上の花は並べない" );
 					break;
 				}
-
-				var posX = centerPos.x + (unit * j);
+					
+				var posX = centerPos.x + posxList[i] + ( posxList[j % posxList.Length] * unit);
+				var posZ = centerPos.z + poszList[i] + ( poszList[j % poszList.Length] * unit); 
+//				var posX = posxList[i] + ( posxList[j % posxList.Length] * unit);
+//				var posZ = poszList[i] + ( poszList[j % poszList.Length] * unit); 
 
 				var b = Instantiate( bouquetPartPrefab ).GetComponent<BouquetPart>();
+				b.transform.position = centerPos;
 				var type = flower.flowerType;
 
-				b.Create( type, transform.TransformPoint ( new Vector3( posX, posY, 0 ) ) );
+				b.Create( type, new Vector3( posX, posY, posZ ), hand );
+//				b.Create( type, hand.TransformPoint( new Vector3( posX, posY, posZ ) ), hand );
+
 			}
 		}
 
 		// SE
-		bouquetbase.GetComponent<AudioSource>().PlayOneShot(bouquetPartsGone_se);
+		this.bouquetBase.GetComponent<AudioSource>().PlayOneShot(bouquetPartsGone_se);
 
 		// 左手に花束の紙部分を持たせる
 		if( bouquetPackage == null)
 		{
 			bouquetPackage = Instantiate(bouquetPackagePrefab) as GameObject;
-			bouquetPackage.transform.SetParent( bouquetbase, false );
+            bouquetPackage.transform.SetParent( this.bouquetBase, false );
 		}
 	}
 
@@ -357,7 +363,7 @@ public class BouquetMaker : MonoBehaviour
 		}
 
 		// SE
-		bouquetbase.GetComponent<AudioSource>().PlayOneShot(bouquetPartsGone_se);
+		bouquetBase.GetComponent<AudioSource>().PlayOneShot(bouquetPartsGone_se);
 
 		bouquetBase = null;
 		hand = null;
@@ -375,12 +381,12 @@ public class BouquetMaker : MonoBehaviour
 
 		// エフェクト
 		GameObject g = GameObject.Instantiate(effect);
-		g.transform.SetParent( bouquetbase );
+		g.transform.SetParent( bouquetBase );
 		g.transform.localPosition = Vector3.zero;
 		g.transform.localRotation = Quaternion.identity;
 
 		// se 
-		bouquetbase.GetComponent<AudioSource>().PlayOneShot(bouquetComp_se);
+		bouquetBase.GetComponent<AudioSource>().PlayOneShot(bouquetComp_se);
 		var now = System.DateTime.Now.ToString ();
 		now = now. Replace ("/", "").Replace (" ", "").Replace (":", "");
 
@@ -400,39 +406,5 @@ public class BouquetMaker : MonoBehaviour
 		while( tween != null ) yield return null;
 		tween = whiteScreen.DOColor(Color.clear, 0.75f).OnComplete( () => tween = null );
 		while( tween != null ) yield return null;
-	}
-}
-
-
-/// ここから下は新しいソースに引越し
-public class ModeIconDisplay : MonoBehaviour
-{
-	/// <summary>
-	/// アイコンイメージ
-	/// </summary>
-	[SerializeField]
-	private SpriteRenderer iconImage;
-
-	/// <summary>
-	/// 表示するスプライト
-	/// </summary>
-	[SerializeField]
-	private List<Sprite> iconSprites;
-
-	private int curSpriteIdx = 0;
-
-	private void Update()
-	{
-		//TODO: 現在のモードによってアイコンを切り替え
-		var curMode = 0;
-
-		if( curSpriteIdx != curMode )
-		{
-			Debug.Log( "表示するアイコンを切り替え" );
-
-			curSpriteIdx = curMode;
-
-			iconImage.Sprite = iconSprites[ curSpriteIdx ];
-		}
 	}
 }
